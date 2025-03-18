@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客访问</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        #questions {
+            margin-top: 20px;
+        }
+        #content {
+            display: none;
+            margin-top: 20px;
+        }
+        #gif-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .gif {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { top: -100px; }
+            100% { top: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="audio" autoplay>
+        <source src="https://jackmum2025.github.io/forMiao/Front.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
+
+    <div id="questions">
+        <h2>请回答以下问题以查看博客内容：</h2>
+        <p>1. 我们最长一起吃的是什么？</p>
+        <input type="text" id="q1" placeholder="请输入答案">
+        <p>2. 我每天会提醒你吃的是什么？</p>
+        <input type="text" id="q2" placeholder="请输入答案">
+        <p>3. 你的代表性公仔是什么名字？</p>
+        <input type="text" id="q3" placeholder="请输入答案">
+        <p>4. 我目前要弹给你听的钢琴曲是什么名字？</p>
+        <input type="text" id="q4" placeholder="请输入答案">
+        <br><br>
+        <button onclick="checkAnswers()">提交</button>
+    </div>
+
+    <div id="content">
+        <img src="https://media-hosting.imagekit.io//2d070e59aac34f5f/IMG_2749.JPG?Expires=1836814000&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=l7tHSxF4afzrI6huMsFPeP7k-eG5XuPuMOrDlP8lgo0MQxCy4s1qh2lsuAmZoj8tyIh~KQUy~rPpc7gDAoCHfux1cQqYlaRqUVAXuKSm-bT6m51dq0Pzgc2c4ys83xLgmNjaKpfzogAfkcD5HFirMNreCJ8YiI-txwD-Vd9qPfRf9DeQ2ZfMkOPXZWTjWTIzAwTn7tzkf9nTUlwVqXfRvm11hv4ZxfqsvOX7mTLnBLg~erIRY96H9y4SHFcJK0MIQYM6Ap6zbIF6SkYTzcac~iJbhqPM9~~qSAozi9ulv4hphWaTZpANfHpnTDTX8wy5lZHNIubVMnSavzS-1GG3yw__" alt="照片">
+        <p>日记内容：</p>
+        <iframe src="https://jackmum2025.github.io/forMiao/diary.txt" width="100%" height="300px"></iframe>
+    </div>
+
+    <div id="gif-container"></div>
+
+    <script>
+        const gifs = [
+            "https://p4.itc.cn/images01/20230509/6ea2213ddcd84ece8c6fb244b4c5d578.gif",
+            "https://p4.itc.cn/images01/20230509/521a12aaf47248cd88423200901d3225.gif",
+            "https://p7.itc.cn/images01/20230509/90da6241372a4bff8c923320b1a4edca.gif",
+            "https://p6.itc.cn/images01/20230509/267cebb700c54c07879153729f849bda.gif",
+            "https://p2.itc.cn/images01/20230509/8bc232fd2e484468ae504d91b46c6541.gif",
+            "https://p6.itc.cn/images01/20230509/9ff5113e2e0b49f69f41dd9ad7d6be14.gif",
+            "https://p9.itc.cn/images01/20230509/45444cf11e2140338d2d5b56136d767c.gif",
+            "https://p0.itc.cn/images01/20230509/41dbcf9a38c64576a3c05865e5deb498.gif",
+            "https://p8.itc.cn/images01/20230509/bff03ef64e8b4502a0d39bc455e44cf3.gif",
+            "https://p5.itc.cn/images01/20230509/a537f537a4e04116a182840ed251bfa4.gif",
+            "https://p7.itc.cn/images01/20230509/96a918dd65984c199a6eb5ce247f4ae6.gif",
+            "https://p6.itc.cn/images01/20230509/98cbc8736d1a42c78f549836aedd5720.gif",
+            "https://p9.itc.cn/images01/20230509/060c1550b9ed4592b53bedc5702f8767.gif",
+            "https://p4.itc.cn/images01/20230509/2d2b26049e9e415b9e542176db84195c.gif"
+        ];
+
+        function checkAnswers() {
+            const q1 = document.getElementById('q1').value.toLowerCase();
+            const q2 = document.getElementById('q2').value.toLowerCase();
+            const q3 = document.getElementById('q3').value.toLowerCase();
+            const q4 = document.getElementById('q4').value.toLowerCase();
+
+            if ((q1 === 'mcd' || q1 === 'mcdonals') &&
+                (q2 === 'vit c' || q2 === 'vitamin c') &&
+                q3 === '一二' &&
+                q4 === '童话') {
+                document.getElementById('questions').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('audio').src = 'https://jackmum2025.github.io/forMM/Sparkle%20-%20movie%20ver%20(mp3cut.net)%20(4).mp3';
+                document.getElementById('audio').play();
+                startGifRain();
+            } else {
+                alert('答案错误，请重新回答！');
+            }
+        }
+
+        function startGifRain() {
+            const gifContainer = document.getElementById('gif-container');
+            gifs.forEach(gif => {
+                const img = document.createElement('img');
+                img.src = gif;
+                img.classList.add('gif');
+                img.style.left = `${Math.random() * 100}%`;
+                img.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                gifContainer.appendChild(img);
+            });
+        }
+    </script>
+</body>
+</html>
