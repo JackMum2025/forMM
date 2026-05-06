@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Moral Fantastic · 趣学德育</title>
+  <title>Moral Fantastic</title>
   <style>
     * {
       margin: 0;
@@ -14,23 +14,24 @@
     body {
       font-family: 'Nunito', 'Segoe UI', 'Quicksand', system-ui, sans-serif;
       background: #ffffff;
-      color: #d94f7a;
+      color: #2d4e1e;
       line-height: 1.5;
-      min-height: 100vh;
     }
 
+    /* 置顶导航栏 - 绿色系 */
     .sticky-header {
       position: sticky;
       top: 0;
       z-index: 1000;
       background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(8px);
-      border-bottom: 2px solid #ffe0e8;
-      padding: 0.7rem 1rem;
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #c8dcc0;
+      padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
+      gap: 12px;
     }
 
     .logo-area {
@@ -40,159 +41,512 @@
     }
 
     .logo-icon {
-      font-size: 2rem;
-      animation: gentleBounce 2s infinite ease;
+      font-size: 32px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
     }
 
     .logo-text {
       font-size: 1.6rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #e8436e, #ff99bb);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
+      color: #2d4e1e;
+      letter-spacing: -0.5px;
     }
 
-    @keyframes gentleBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    .tagline {
+      background: #e8f0e3;
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #4a6e3a;
     }
 
-    .hero-section {
-      padding: 2rem 1rem;
-    }
-
-    .intro-grid {
-      max-width: 1100px;
+    /* 主容器 */
+    .container {
+      max-width: 100%;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.8rem;
     }
 
-    .feature-card {
+    /* 全宽图片区域 */
+    .full-image {
+      width: 100%;
+      display: block;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .full-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 按钮区域 */
+    .buttons-section {
+      padding: 48px 20px;
+      text-align: center;
       background: #ffffff;
-      border-radius: 48px;
-      padding: 2rem 1.8rem;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.03);
-      border: 1px solid #ffe2ec;
-      transition: all 0.3s;
+      animation: fadeInScale 0.5s ease-out;
     }
 
-    .feature-card:hover {
-      transform: scale(1.01);
-      border-color: #ffc0d4;
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .feature-title {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #e8436e;
-      margin-bottom: 0.5rem;
-    }
-
-    .feature-desc {
-      font-size: 1rem;
-      color: #b85c7a;
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .btn-group {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.2rem;
-      margin-top: 1.2rem;
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-    .btn-primary, .btn-secondary {
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 60px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
       display: inline-block;
-      padding: 0.9rem 1.6rem;
-      border-radius: 100px;
-      font-weight: 800;
+      text-align: center;
+      font-family: inherit;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .btn-trial {
+      background: #7fa86a;
+      color: white;
+      box-shadow: 0 6px 14px rgba(127, 168, 106, 0.35);
+    }
+
+    .btn-trial:hover {
+      background: #5b8c4e;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(91, 140, 78, 0.4);
+    }
+
+    .btn-master {
+      background: #4a6fa5;
+      color: white;
+      box-shadow: 0 6px 14px rgba(74, 111, 165, 0.3);
+    }
+
+    .btn-master:hover {
+      background: #3a5a8a;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(58, 90, 138, 0.4);
+    }
+
+    .btn-small-desc {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: normal;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    /* 弹窗美化 */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .master-modal {
+      background: white;
+      border-radius: 48px;
+      max-width: 380px;
+      width: 90%;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 28px 48px rgba(0, 0, 0, 0.2);
+      animation: bounceIn 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+      border: 1px solid #c8dcc0;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      80% {
+        transform: scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .master-modal h3 {
+      color: #2d4e1e;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .master-modal p {
+      color: #6b7c63;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .master-modal input {
+      width: 100%;
+      padding: 14px 16px;
+      margin: 0.5rem 0 1rem;
+      border: 2px solid #d9e6d3;
+      border-radius: 60px;
       font-size: 1rem;
       text-align: center;
-      cursor: pointer;
-      transition: 0.25s ease;
+      letter-spacing: 2px;
+      font-family: monospace;
+      transition: 0.2s;
+    }
+
+    .master-modal input:focus {
+      outline: none;
+      border-color: #7fa86a;
+      box-shadow: 0 0 0 3px rgba(127, 168, 106, 0.2);
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 0.5rem;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
       border: none;
-      text-decoration: none;
+      border-radius: 60px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
-    .btn-primary {
-      background: #ff99bb;
+    .modal-login {
+      background: #7fa86a;
       color: white;
-      box-shadow: 0 8px 18px rgba(255, 153, 187, 0.25);
     }
 
-    .btn-primary:hover {
-      background: #ff7aa6;
-      transform: translateY(-3px);
-    }
-
-    .btn-secondary {
-      background: white;
-      color: #ff88ae;
-      border: 2px solid #ffc0d4;
-    }
-
-    .btn-secondary:hover {
-      background: #fff5f8;
+    .modal-login:hover {
+      background: #5b8c4e;
       transform: translateY(-2px);
-      border-color: #ff99bb;
+    }
+
+    .modal-cancel {
+      background: #f0f0f0;
+      color: #666;
+    }
+
+    .modal-cancel:hover {
+      background: #e0e0e0;
+      transform: translateY(-2px);
+    }
+
+    /* 语言选择弹窗 */
+    .language-modal {
+      background: white;
+      border-radius: 48px;
+      max-width: 360px;
+      width: 90%;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 28px 48px rgba(0, 0, 0, 0.2);
+      animation: bounceIn 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+      border: 1px solid #c8dcc0;
+    }
+
+    .language-modal h3 {
+      color: #2d4e1e;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .lang-link {
+      display: block;
+      padding: 14px;
+      border-radius: 60px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: 0.2s;
+      font-size: 1.1rem;
+    }
+
+    .lang-link:last-of-type {
+      margin-bottom: 16px;
+    }
+
+    .lang-link.cn {
+      background: #7fa86a;
+      color: white;
+    }
+
+    .lang-link.cn:hover {
+      background: #5b8c4e;
+      transform: translateY(-2px);
+    }
+
+    .lang-link.ms {
+      background: #4a6fa5;
+      color: white;
+    }
+
+    .lang-link.ms:hover {
+      background: #3a5a8a;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 20px;
+      color: #9bb88b;
+      font-size: 0.75rem;
+      border-top: 1px solid #e2ecd9;
+      margin-top: 0;
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .sticky-header {
+        padding: 10px 16px;
+      }
+      .logo-text {
+        font-size: 1.3rem;
+      }
+      .logo-icon {
+        font-size: 28px;
+      }
+      .btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+        min-width: 160px;
+      }
+      .buttons-section {
+        padding: 32px 16px;
+      }
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<!-- 置顶导航 -->
 <div class="sticky-header">
   <div class="logo-area">
-    <div class="logo-icon">🌸</div>
+    <div class="logo-icon">🍀</div>
     <div class="logo-text">Moral Fantastic</div>
   </div>
-  <div>
-    <span style="background:#ffe0e8; border-radius: 40px; padding: 6px 14px; font-size:0.8rem; color:#e8436e;">🌈 趣学·育品德</span>
-  </div>
+  <div class="tagline">Learn Moral · Fun Way</div>
 </div>
 
-<div class="hero-section">
-  <div class="intro-grid">
-    <div class="feature-card">
-      <div class="feature-icon">🎯✨</div>
-      <div class="feature-title">free. fun. effective.</div>
-      <div class="feature-desc">Learning with Moral Fantastic is fun, and research shows that it works! With quick, bite‑sized lessons, you’ll earn points while gaining real‑world moral skills.<br><span style="display:block; margin-top:0.3rem;">Pembelajaran dengan Moral Fantastic adalah menyeronokkan—penyelidikan membuktikan ia berkesan!</span></div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🧠🔬</div>
-      <div class="feature-title">backed by science</div>
-      <div class="feature-desc">Combining the best of AI and pedagogy, lessons are tailored to help you learn at just the right level and pace.<br><span style="display:block; margin-top:0.3rem;">Menggabungkan AI terbaik & sains pendidikan, pelajaran disesuaikan untuk tahap dan rentak anda.</span></div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💪🌟</div>
-      <div class="feature-title">stay motivated</div>
-      <div class="feature-desc">We make it easy to form a habit of moral learning with game‑like features, fun challenges, and reminders from our friendly mascot.<br><span style="display:block; margin-top:0.3rem;">Kami menjadikan pembelajaran moral sebagai tabiat mudah dengan elemen permainan, cabaran seronok dan peringatan mesra.</span></div>
-    </div>
-    <div class="btn-group">
-      <a href="zh.html" class="btn-primary">🎓 FREE TRIAL CLASS <span style="display: block; font-size: 0.7rem;">Kelas Percubaan Percuma</span></a>
-      <button class="btn-secondary" id="masterKeyBtn">🔐 MASTER KEY LOGIN <span style="display: block; font-size: 0.7rem;">Log Masuk Khas Guru</span></button>
-    </div>
-    <p style="text-align:center; margin-top: 0.5rem; color:#e48aa7;">Join thousands of young learners 🌱</p>
+<!-- 主内容容器 -->
+<div class="container">
+  
+  <!-- 图片 1 -->
+  <div class="full-image" id="image1">
+    <img src="" alt="Moral Fantastic Banner">
   </div>
+
+  <!-- 按钮区域（图片1之后） -->
+  <div class="buttons-section">
+    <div class="btn-group">
+      <a href="#" id="freeTrialBtn" class="btn btn-trial">
+        🎓 FREE TRIAL CLASS
+        <span class="btn-small-desc">Start Learning Now</span>
+      </a>
+      <button id="masterKeyBtn" class="btn btn-master">
+        🔐 MASTER KEY LOGIN
+        <span class="btn-small-desc">Special Access</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 图片 2 -->
+  <div class="full-image" id="image2">
+    <img src="" alt="Moral Fantastic Illustration 2">
+  </div>
+
+  <!-- 图片 3 -->
+  <div class="full-image" id="image3">
+    <img src="" alt="Moral Fantastic Illustration 3">
+  </div>
+
+  <!-- 图片 4 -->
+  <div class="full-image" id="image4">
+    <img src="" alt="Moral Fantastic Illustration 4">
+  </div>
+
+  <!-- 图片 5 -->
+  <div class="full-image" id="image5">
+    <img src="" alt="Moral Fantastic Illustration 5">
+  </div>
+
+  <!-- 图片 6 -->
+  <div class="full-image" id="image6">
+    <img src="" alt="Moral Fantastic Illustration 6">
+  </div>
+
+  <footer>
+    🌱 Nurturing Young Hearts · Moral Education Made Fun
+  </footer>
 </div>
 
 <script>
-  // MASTER KEY LOGIN 仅演示（16位密码输入框）
-  document.getElementById('masterKeyBtn').addEventListener('click', function() {
-    let pwd = prompt("请输入16位 Master Key（演示用，无实际功能）:");
-    if (pwd && pwd.length === 16) {
-      alert("Master Key 已接收 (演示模式)。请点击 FREE TRIAL CLASS 开始学习。");
-    } else if (pwd) {
-      alert("Master Key 需要16位字符，请重新输入。");
+  // ==================== 请在这里填入您的6张图片/GIF链接 ====================
+  // 顺序：图片1 → 按钮 → 图片2 → 图片3 → 图片4 → 图片5 → 图片6
+  const imageUrls = [
+    "https://via.placeholder.com/1200x600/7fa86a/ffffff?text=Image+1",   // 图片1 链接（替换为您的）
+    "https://via.placeholder.com/1200x600/c8dcc0/2d4e1e?text=Image+2",   // 图片2 链接
+    "https://via.placeholder.com/1200x600/e8f0e3/2d4e1e?text=Image+3",   // 图片3 链接
+    "https://via.placeholder.com/1200x600/a8c99b/2d4e1e?text=Image+4",   // 图片4 链接
+    "https://via.placeholder.com/1200x600/7fa86a/ffffff?text=Image+5",   // 图片5 链接
+    "https://via.placeholder.com/1200x600/c8dcc0/2d4e1e?text=Image+6"    // 图片6 链接
+  ];
+
+  // 加载所有图片
+  function loadAllImages() {
+    for (let i = 1; i <= 6; i++) {
+      const imgContainer = document.getElementById(`image${i}`);
+      if (imgContainer && imageUrls[i-1]) {
+        const img = imgContainer.querySelector('img');
+        if (img) {
+          img.src = imageUrls[i-1];
+          // 添加淡入动画类（每个图片独立）
+          img.style.animation = `fadeInUp 0.6s ease-out ${(i-1) * 0.1}s backwards`;
+        }
+      }
     }
+  }
+
+  // 页面加载时执行
+  document.addEventListener('DOMContentLoaded', function() {
+    loadAllImages();
+  });
+
+  // ==================== FREE TRIAL CLASS：弹出语言选择 ====================
+  function showLanguageModal() {
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'modal-overlay';
+    modalOverlay.innerHTML = `
+      <div class="language-modal">
+        <div style="font-size: 3rem;">🌍</div>
+        <h3>Choose Language</h3>
+        <p style="color: #6b7c63; margin-bottom: 1rem;">Please select your preferred language</p>
+        <a href="zh.html" class="lang-link cn">🇨🇳 Chinese (中文版)</a>
+        <a href="ms.html" class="lang-link ms">🇲🇾 Malay (Bahasa Melayu)</a>
+        <button class="modal-cancel" style="width: 100%; padding: 12px; background: #f0f0f0; border: none; border-radius: 60px; cursor: pointer; font-weight: 600;">Cancel</button>
+      </div>
+    `;
+    document.body.appendChild(modalOverlay);
+    
+    const cancelBtn = modalOverlay.querySelector('.modal-cancel');
+    cancelBtn.onclick = () => modalOverlay.remove();
+    modalOverlay.onclick = (e) => { if (e.target === modalOverlay) modalOverlay.remove(); };
+    
+    // 悬停效果
+    const links = modalOverlay.querySelectorAll('a');
+    links.forEach(link => {
+      link.onmouseenter = () => link.style.transform = 'translateY(-2px)';
+      link.onmouseleave = () => link.style.transform = 'translateY(0)';
+    });
+  }
+
+  document.getElementById('freeTrialBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    showLanguageModal();
+  });
+
+  // ==================== MASTER KEY LOGIN：16位密码弹窗 ====================
+  function showMasterKeyModal() {
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'modal-overlay';
+    modalOverlay.innerHTML = `
+      <div class="master-modal">
+        <div style="font-size: 2.5rem;">🔐</div>
+        <h3>Master Key Login</h3>
+        <p>Enter 16-digit master key (demo)</p>
+        <input type="password" id="masterPassword" maxlength="16" placeholder="················" autocomplete="off">
+        <div class="modal-buttons">
+          <button id="modalLoginBtn" class="modal-btn modal-login">Login</button>
+          <button id="modalCancelBtn" class="modal-btn modal-cancel">Cancel</button>
+        </div>
+        <p style="font-size: 0.7rem; color: #9bb88b; margin-top: 12px;">Demo mode · No actual validation</p>
+      </div>
+    `;
+    document.body.appendChild(modalOverlay);
+
+    const passwordInput = modalOverlay.querySelector('#masterPassword');
+    const loginBtn = modalOverlay.querySelector('#modalLoginBtn');
+    const cancelBtn = modalOverlay.querySelector('#modalCancelBtn');
+
+    loginBtn.onclick = () => {
+      const pwd = passwordInput.value.trim();
+      if (pwd.length === 16) {
+        alert('✅ Master Key accepted (demo mode)!');
+        modalOverlay.remove();
+      } else {
+        alert('❌ Password must be exactly 16 characters.');
+        passwordInput.value = '';
+        passwordInput.focus();
+        // 抖动提示效果
+        const modal = modalOverlay.querySelector('.master-modal');
+        modal.style.animation = 'none';
+        setTimeout(() => modal.style.animation = 'bounceIn 0.4s cubic-bezier(0.34,1.2,0.64,1)', 10);
+      }
+    };
+
+    cancelBtn.onclick = () => modalOverlay.remove();
+    modalOverlay.onclick = (e) => { if (e.target === modalOverlay) modalOverlay.remove(); };
+    passwordInput.focus();
+  }
+
+  document.getElementById('masterKeyBtn').addEventListener('click', function() {
+    showMasterKeyModal();
   });
 </script>
 </body>
