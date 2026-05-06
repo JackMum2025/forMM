@@ -5,12 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Moral Fantastic · 德润童心</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Nunito', 'Segoe UI', 'Quicksand', '微软雅黑', system-ui, sans-serif;
       background: #ffffff;
@@ -18,17 +13,15 @@
       line-height: 1.5;
       min-height: 100vh;
     }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #eef5ea; border-radius: 10px; }
     ::-webkit-scrollbar-thumb { background: #7fa86a; border-radius: 10px; }
 
-    /* 置顶导航栏 */
     .sticky-header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255,255,255,0.96);
       backdrop-filter: blur(10px);
       border-bottom: 2px solid #d4e6ca;
       padding: 12px 20px;
@@ -38,17 +31,13 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-
     .logo-area { display: flex; align-items: center; gap: 12px; }
     .logo-icon { font-size: 28px; animation: bounce 2s ease-in-out infinite; }
     @keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);} }
-    .logo-text { font-size: 1.5rem; font-weight: 800; color: #2d4e1e; letter-spacing: -0.5px; }
+    .logo-text { font-size: 1.5rem; font-weight: 800; color: #2d4e1e; }
     .lang-badge { background: #eef5ea; border-radius: 40px; padding: 6px 16px; font-size: 0.8rem; font-weight: 600; color: #4a6e3a; }
 
-    /* 主容器 */
     .main-container { max-width: 700px; margin: 0 auto; padding: 20px 16px 40px; }
-
-    /* 用户欢迎栏 */
     .user-bar {
       background: white;
       border-radius: 28px;
@@ -60,55 +49,50 @@
       flex-wrap: wrap;
       gap: 12px;
       border: 1px solid #d4e6ca;
-      box-shadow: 0 4px 12px rgba(80, 110, 60, 0.05);
     }
     .welcome-text { font-weight: 700; color: #2d4e1e; background: #eef5ea; padding: 6px 16px; border-radius: 40px; font-size: 0.85rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .dropdown { position: relative; }
+    .dropdown-btn { background: #eef5ea; color: #3a5e2b; border: none; padding: 8px 18px; border-radius: 40px; font-weight: 600; cursor: pointer; }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 220px;
+      max-height: 350px;
+      overflow-y: auto;
+      border-radius: 24px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+      border: 1px solid #d4e6ca;
+      z-index: 200;
+      margin-top: 8px;
+    }
+    .dropdown-content.show { display: block; animation: fadeInScale 0.2s ease; }
+    @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .dropdown-item { padding: 12px 18px; cursor: pointer; border-bottom: 1px solid #e2ecd9; transition: 0.1s; }
+    .dropdown-item:hover { background: #eef5ea; }
+    .back-btn { background: #e8f0e3; }
+    .today-topic { background: #eef5ea; border-radius: 40px; padding: 6px 16px; font-size: 0.8rem; font-weight: 600; color: #3a5e2b; }
+    .start-course-btn { background: #7fa86a; color: white; border: none; padding: 6px 16px; border-radius: 40px; font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
+    .start-course-btn:hover { background: #5b8c4e; transform: translateY(-2px); }
 
-    /* Slogan 图片 */
     .slogan-img { text-align: center; margin-bottom: 24px; }
-    .slogan-img img { width: 100%; max-width: 600px; border-radius: 28px; box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+    .slogan-img img { width: 100%; max-width: 600px; border-radius: 28px; }
 
-    /* 5个圆形按钮 */
-    .circle-buttons {
-      display: flex;
-      justify-content: space-around;
-      gap: 12px;
-      margin: 24px 0 32px;
-      flex-wrap: wrap;
-    }
+    .circle-buttons { display: flex; justify-content: space-around; gap: 12px; margin: 24px 0 32px; flex-wrap: wrap; }
     .circle-btn {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: #7fa86a;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      text-decoration: none;
-      box-shadow: 0 6px 14px rgba(127, 168, 106, 0.3);
-      border: none;
+      width: 70px; height: 70px; border-radius: 50%; background: #7fa86a; color: white;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: 0.25s; text-decoration: none; border: none;
+      box-shadow: 0 6px 14px rgba(127,168,106,0.3);
     }
-    .circle-btn:hover {
-      transform: translateY(-5px) scale(1.05);
-      background: #5b8c4e;
-      box-shadow: 0 12px 24px rgba(91, 140, 78, 0.4);
-    }
+    .circle-btn:hover { transform: translateY(-5px) scale(1.05); background: #5b8c4e; }
     .circle-btn span:first-child { font-size: 1.6rem; font-weight: 800; }
     .circle-btn span:last-child { font-size: 0.65rem; margin-top: 2px; }
 
-    /* 板卡片 */
-    .board-card {
-      background: white;
-      border-radius: 32px;
-      border: 1px solid #d4e6ca;
-      padding: 20px;
-      margin: 20px 0;
-      transition: all 0.2s;
-    }
+    .board-card { background: white; border-radius: 32px; border: 1px solid #d4e6ca; padding: 20px; margin: 20px 0; }
     .board-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
     .board-tip { background: #eef5ea; border-radius: 24px; padding: 12px; margin-bottom: 16px; font-size: 0.85rem; color: #4a6040; }
     .message-list { max-height: 400px; overflow-y: auto; margin-top: 16px; }
@@ -119,36 +103,22 @@
     .btn-sm:hover { background: #5b8c4e; transform: translateY(-2px); }
     footer { background: #eef5ea; padding: 16px; text-align: center; color: #4a6e3a; margin-top: 20px; border-radius: 28px; font-size: 0.75rem; }
 
-    /* 弹窗遮罩 */
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 2000; animation: fadeIn 0.2s ease;
-    }
-    .language-modal, .quiz-modal {
-      background: white; max-width: 360px; width: 90%; padding: 28px 24px;
-      border-radius: 48px; text-align: center; border: 1px solid #d4e6ca;
-      animation: bounceIn 0.4s cubic-bezier(0.34,1.2,0.64,1);
-    }
+    /* 游戏区域 */
+    .game-section { margin: 20px 0; }
+    .game-selector select { width: 100%; padding: 12px; border: 2px solid #e2ecd9; border-radius: 60px; font-family: inherit; margin-bottom: 12px; }
+    .game-container { background: white; border-radius: 28px; padding: 8px; border: 1px solid #d4e6ca; }
+    .game-wrapper iframe { width: 100%; height: 420px; border: none; border-radius: 24px; }
+    .game-note { text-align: center; margin-top: 8px; font-size: 0.8rem; color: #8aa67d; }
+
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+    .language-modal, .quiz-modal { background: white; max-width: 400px; width: 90%; padding: 28px 24px; border-radius: 48px; text-align: center; border: 1px solid #d4e6ca; animation: bounceIn 0.4s cubic-bezier(0.34,1.2,0.64,1); }
     @keyframes bounceIn { 0%{opacity:0;transform:scale(0.8);} 80%{transform:scale(1.02);} 100%{opacity:1;transform:scale(1);} }
-    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-    .lang-link, .quiz-start-btn {
-      display: block; padding: 14px; border-radius: 60px; margin-bottom: 12px;
-      font-weight: 700; text-decoration: none; transition: 0.2s;
-      background: #7fa86a; color: white; border: none; width: 100%; cursor: pointer;
-    }
+    .lang-link, .quiz-start-btn { display: block; padding: 14px; border-radius: 60px; margin-bottom: 12px; font-weight: 700; text-decoration: none; background: #7fa86a; color: white; width: 100%; cursor: pointer; border: none; }
     .lang-link:hover, .quiz-start-btn:hover { background: #5b8c4e; transform: translateY(-2px); }
     .modal-cancel { background: #eef5ea; color: #666; border: none; padding: 12px; border-radius: 60px; width: 100%; cursor: pointer; }
-
-    @media (max-width: 600px) {
-      .circle-btn { width: 55px; height: 55px; }
-      .circle-btn span:first-child { font-size: 1.3rem; }
-    }
-
-    /* 老师模式按钮样式 */
-    .teacher-btn { background: #e2ecd9; color: #2d4e1e; border: none; padding: 6px 12px; border-radius: 40px; cursor: pointer; }
     .empty-message { text-align: center; color: #b8cfaa; padding: 24px; font-style: italic; }
+
+    @media (max-width: 600px) { .circle-btn { width: 55px; height: 55px; } .circle-btn span:first-child { font-size: 1.3rem; } }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
@@ -160,12 +130,29 @@
 </div>
 
 <div class="main-container" id="mainContent">
-  <!-- 用户欢迎栏 -->
+  <!-- 用户栏 + 课程下拉 + 今日课题 + 开始课程按钮 -->
   <div class="user-bar">
     <span class="welcome-text" id="userWelcomeDisplay">👋 访客</span>
-    <div style="display: flex; gap: 8px;">
-      <button id="teacherToggleBtn" class="teacher-btn" onclick="toggleTeacherMode()">🔑 老师登录</button>
-      <div class="today-topic" style="background:#eef5ea; padding:6px 16px; border-radius:40px; font-size:0.8rem;">📌 网络霸凌</div>
+    <div class="nav-links">
+      <div class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown()">📚 其他课题 ▼</button>
+        <div class="dropdown-content" id="dropdownMenu">
+          <div id="gradeList">
+            <div class="dropdown-item" onclick="showCourses('一年级')">📖 一年级</div>
+            <div class="dropdown-item" onclick="showCourses('二年级')">📖 二年级</div>
+            <div class="dropdown-item" onclick="showCourses('三年级')">📖 三年级</div>
+            <div class="dropdown-item" onclick="showCourses('四年级')">📖 四年级</div>
+            <div class="dropdown-item" onclick="showCourses('五年级')">📖 五年级</div>
+            <div class="dropdown-item" onclick="showCourses('六年级')">📖 六年级</div>
+          </div>
+          <div id="courseList" style="display:none;">
+            <div class="dropdown-item back-btn" onclick="backToGrades()">← 返回年级</div>
+            <div id="courseItems"></div>
+          </div>
+        </div>
+      </div>
+      <div class="today-topic">测试课程 📌 网络霸凌</div>
+      <button class="start-course-btn" onclick="window.location.href='ppt.html'">📖 开始课程</button>
     </div>
   </div>
 
@@ -181,12 +168,13 @@
     <button class="circle-btn" id="quizBtn"><span>⑤</span><span>测验</span></button>
   </div>
 
-  <!-- 心事匿名质询墙 -->
+  <!-- 心事匿名质询墙（老师登录按钮放回这里） -->
   <div class="board-card">
     <div class="board-header">
       <h2 style="color:#2d4e1e; font-size:1.2rem;">🌙 心事匿名质询墙</h2>
       <div style="display:flex; gap:8px;">
         <span style="background:#eef5ea; padding:4px 12px; border-radius:40px; font-size:0.7rem;">🕶️ 完全匿名</span>
+        <button id="teacherToggleBtn" onclick="toggleTeacherMode()" class="teacher-btn" style="background:#e2ecd9; border:none; padding:4px 12px; border-radius:40px; cursor:pointer;">🔑 老师登录</button>
       </div>
     </div>
     <div class="board-tip">💬 有心事、有疑问？在这里匿名倾诉。老师会看到并回复你。</div>
@@ -210,300 +198,293 @@
     <div class="message-list" id="quoteList"><div class="empty-message">✨ 还没有名言，快来分享正能量吧</div></div>
   </div>
 
+  <!-- 德育互动游戏区域（保留原本的游戏功能） -->
+  <div class="game-section">
+    <div class="section-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <h2 style="color:#2d4e1e;">🎮 德育互动游戏</h2>
+      <span style="background:#eef5ea; padding:4px 12px; border-radius:40px; font-size:0.7rem;">📱 手机可玩</span>
+    </div>
+    <div class="game-selector">
+      <select id="gameSelect" onchange="switchGame(this.value)">
+        <option value="0">🛡️ 网络卫士</option>
+        <option value="1">🛡️ 网络卫士 II</option>
+        <option value="2">🛡️ 网络卫士 III</option>
+      </select>
+    </div>
+    <div class="game-container">
+      <div class="game-wrapper" id="gameWrapper">
+        <iframe src="cyber-guardian.html" style="width:100%;height:420px;border:none;border-radius:24px;"></iframe>
+      </div>
+      <div class="game-note" id="gameNote">🛡️ 网络卫士 · 拦截霸凌言论，守护网络世界！</div>
+    </div>
+  </div>
+
   <footer>© 2026 Moral Fantastic · 德育如细雨，润物细无声</footer>
 </div>
 
 <script>
-  // ==================== 全局变量 ====================
-  let currentUser = null;
-  let isTeacherMode = false;
-  let violationCount = parseInt(localStorage.getItem('moral_violation_count') || '0');
-  let lastSubmitTime = parseInt(localStorage.getItem('moral_last_submit') || '0');
-  const SUBMIT_COOLDOWN = 10000;
-  const TEACHER_PASSWORD = "123456";
+// ==================== 全局变量 ====================
+let currentUser = null;
+let isTeacherMode = false;
+let violationCount = parseInt(localStorage.getItem('moral_violation_count') || '0');
+let lastSubmitTime = parseInt(localStorage.getItem('moral_last_submit') || '0');
+const SUBMIT_COOLDOWN = 10000;
+const TEACHER_PASSWORD = "123456";
 
-  const CONFIG = {
-    googleScriptUrl: "https://script.google.com/macros/s/AKfycbw55PFmrpGe6chTrZeB1QtGhCwHAKABz3tWr9TOlsbKMQgKSkv6pD1T0NIK4_b3_EGW/exec",
-    sheetApiUrl: "https://opensheet.elk.sh/13cZDJXzzD0OaGJIb0qlnCwmV6hjl_ruJzOhDLkYmZqw/Sheet1"
+// 游戏配置（只保留3个）
+const GAMES = [
+  { src: 'cyber-guardian.html', note: '🛡️ 网络卫士 · 拦截霸凌言论，守护网络世界！' },
+  { src: 'cyber-guardian2.html', note: '🛡️ 网络卫士 II · 第二关挑战' },
+  { src: 'cyber-guardian4.html', note: '🛡️ 网络卫士 III · 终极挑战' }
+];
+
+// 课程数据（完整1-6年级）
+const courseData = {
+  '一年级': ['我的宗教信仰','助人小天使','我已经长大','欢喜说谢谢','人人夸我有礼貌','我喜欢我自己','爱惜自己','处处讲公正','我是勇敢的小孩','花瓶是我打破的','天天要勤劳','分工合作真欢喜','凡事都要刚刚好','我懂得礼让'],
+  '二年级': ['美好的时光','贴心小举动','长大了，学做事','心里暖暖的','爸爸妈妈都夸我','看重家人的感受','可爱的家庭','公平又正直','学做小勇士','踏实的心','勤劳的收获','合作乐无穷','跟我这样生活吧','退一步想想'],
+  '三年级': ['欢喜庆佳节','助人为乐','责任小尖兵','感恩饼干','礼貌花朵校园开','互相尊重暖人心','关爱满校园','大公无私','我能够做到！','诚实是宝','最甜美的果实','团结力量大','刚刚好，真美好','一团和气'],
+  '四年级': ['和谐乐融融','欢喜来助人','尽责不自私','感恩有您','谦让你的赞美','一生受用的礼物','好邻居，无价宝','花卉才艺赛','有理无惧','线条上的密码','晚霞里最美的笑容','幸福的传电波','讨人喜欢的白雪','礼让乐开怀'],
+  '五年级': ['同一条路上','种希望','破窗效应','说不出口的"谢谢"','懂礼貌，守规矩','尊重乐开怀','让青山更翠绿','公正在人心','见义勇为','诚信无价','勤奋坚毅','守望相助','中庸之星','礼让之城'],
+  '六年级': ['和谐心欢畅','我为你送暖','为了您，马来西亚','感恩之旅','权利代言人','我的保护伞','月亮一样圆','以理服人','奔跑吧！小勇士','最美丽的外套','汗水年年','小手牵大手','不偏不倚','礼让不委屈']
+};
+
+const CONFIG = {
+  googleScriptUrl: "https://script.google.com/macros/s/AKfycbw55PFmrpGe6chTrZeB1QtGhCwHAKABz3tWr9TOlsbKMQgKSkv6pD1T0NIK4_b3_EGW/exec",
+  sheetApiUrl: "https://opensheet.elk.sh/13cZDJXzzD0OaGJIb0qlnCwmV6hjl_ruJzOhDLkYmZqw/Sheet1"
+};
+
+// ==================== 初始化 ====================
+function init() {
+  const saved = localStorage.getItem('moralEduUserInfo');
+  if (saved) {
+    currentUser = JSON.parse(saved);
+    document.getElementById('userWelcomeDisplay').innerHTML = `👋 ${currentUser.name}（${currentUser.grade}${currentUser.role}）`;
+  } else {
+    showLanguageModal();
+  }
+  loadAllMessages();
+  setInterval(loadAllMessages, 30000);
+}
+
+// ==================== 语言选择弹窗 ====================
+function showLanguageModal() {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="language-modal">
+      <div style="font-size:3rem;">🌍</div>
+      <h3 style="color:#2d4e1e;">选择语言</h3>
+      <p style="color:#6b7c63; margin-bottom:1rem;">Pilih Bahasa</p>
+      <button class="lang-link" id="selectChinese">🇨🇳 中文版</button>
+      <button class="lang-link" id="selectMalay" style="background:#4a6fa5;">🇲🇾 Bahasa Melayu</button>
+      <button class="modal-cancel" id="cancelLang">取消</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.getElementById('selectChinese').onclick = () => { overlay.remove(); showPersonalInfoModal(); };
+  document.getElementById('selectMalay').onclick = () => { window.location.href = 'ms.html'; };
+  document.getElementById('cancelLang').onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
+
+// ==================== 个人资料弹窗 ====================
+function showPersonalInfoModal() {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="language-modal" style="max-width:380px;">
+      <div style="font-size:2.5rem;">🌱</div>
+      <h3 style="color:#2d4e1e;">认识一下你</h3>
+      <select id="modalGrade" style="width:100%; padding:12px; border-radius:60px; border:2px solid #e2ecd9; margin-bottom:12px;">
+        <option value="">-- 请选择年级 --</option>
+        <option>一年级</option><option>二年级</option><option>三年级</option>
+        <option>四年级</option><option>五年级</option><option>六年级</option><option>师范生</option>
+      </select>
+      <select id="modalRole" style="width:100%; padding:12px; border-radius:60px; border:2px solid #e2ecd9; margin-bottom:12px;">
+        <option value="">-- 请选择身份 --</option>
+        <option>学生</option><option>老师</option>
+      </select>
+      <input type="text" id="modalName" placeholder="昵称" style="width:100%; padding:12px; border-radius:60px; border:2px solid #e2ecd9;">
+      <button id="saveUserInfo" class="lang-link" style="margin-top:12px;">✨ 进入德育园地 →</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.getElementById('saveUserInfo').onclick = () => {
+    const grade = document.getElementById('modalGrade').value;
+    const role = document.getElementById('modalRole').value;
+    const name = document.getElementById('modalName').value.trim();
+    if (!grade || !role || !name) { alert('请填写完整信息'); return; }
+    currentUser = { grade, role, name };
+    localStorage.setItem('moralEduUserInfo', JSON.stringify(currentUser));
+    document.getElementById('userWelcomeDisplay').innerHTML = `👋 ${currentUser.name}（${currentUser.grade}${currentUser.role}）`;
+    overlay.remove();
   };
+}
 
-  // ==================== 初始化：检查用户状态 ====================
-  function init() {
-    const saved = localStorage.getItem('moralEduUserInfo');
-    if (saved) {
-      currentUser = JSON.parse(saved);
-      document.getElementById('userWelcomeDisplay').innerHTML = `👋 ${currentUser.name}（${currentUser.grade}${currentUser.role}）`;
-    } else {
-      // 没有用户信息，显示语言选择弹窗
-      showLanguageModal();
-    }
-    loadAllMessages();
-    setInterval(loadAllMessages, 30000);
-  }
+// ==================== 课程下拉菜单 ====================
+function toggleDropdown() {
+  const m = document.getElementById('dropdownMenu');
+  m.classList.toggle('show');
+  document.getElementById('gradeList').style.display = 'block';
+  document.getElementById('courseList').style.display = 'none';
+}
+function showCourses(grade) {
+  const courses = courseData[grade] || [];
+  let html = `<div style="padding:8px 16px; background:#eef5ea;">${grade}</div>`;
+  courses.forEach((c, i) => {
+    html += `<div class="dropdown-item" onclick="selectCourse('${grade}', '第${i+1}课：${c}')">📚 第${i+1}课：${c}</div>`;
+  });
+  document.getElementById('courseItems').innerHTML = html;
+  document.getElementById('gradeList').style.display = 'none';
+  document.getElementById('courseList').style.display = 'block';
+}
+function backToGrades() { document.getElementById('gradeList').style.display = 'block'; document.getElementById('courseList').style.display = 'none'; }
+function selectCourse(grade, course) {
+  document.getElementById('dropdownMenu').classList.remove('show');
+  alert(`课程：${grade} · ${course}\n请联系老师获取完整教材`);
+}
+document.addEventListener('click', function(e) { if (!e.target.closest('.dropdown')) document.getElementById('dropdownMenu').classList.remove('show'); });
 
-  // ==================== 语言选择弹窗 ====================
-  function showLanguageModal() {
-    const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    overlay.innerHTML = `
-      <div class="language-modal">
-        <div style="font-size:3rem;">🌍</div>
-        <h3 style="color:#2d4e1e;">选择语言</h3>
-        <p style="color:#6b7c63; margin-bottom:1rem;">Pilih Bahasa</p>
-        <button class="lang-link" id="selectChinese">🇨🇳 中文版</button>
-        <button class="lang-link" id="selectMalay" style="background:#4a6fa5;">🇲🇾 Bahasa Melayu</button>
-        <button class="modal-cancel" id="cancelLang">取消</button>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-    
-    document.getElementById('selectChinese').onclick = () => {
-      overlay.remove();
-      showPersonalInfoModal();
-    };
-    document.getElementById('selectMalay').onclick = () => {
-      // 跳转到马来文版主页
-      window.location.href = 'ms.html';
-    };
-    document.getElementById('cancelLang').onclick = () => overlay.remove();
-    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
-  }
+// ==================== 游戏切换 ====================
+function switchGame(index) {
+  const game = GAMES[parseInt(index)];
+  const wrapper = document.getElementById('gameWrapper');
+  wrapper.innerHTML = `<iframe src="${game.src}" style="width:100%;height:420px;border:none;border-radius:24px;"></iframe>`;
+  document.getElementById('gameNote').innerHTML = game.note;
+}
 
-  // ==================== 个人资料弹窗 ====================
-  function showPersonalInfoModal() {
-    const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    overlay.innerHTML = `
-      <div class="language-modal" style="max-width:380px;">
-        <div style="font-size:2.5rem;">🌱</div>
-        <h3 style="color:#2d4e1e;">认识一下你</h3>
-        <div class="form-group" style="margin-bottom:12px;">
-          <select id="modalGrade" style="width:100%; padding:12px; border-radius:60px; border:2px solid #e2ecd9; margin-bottom:12px;">
-            <option value="">-- 请选择年级 --</option>
-            <option>一年级</option><option>二年级</option><option>三年级</option>
-            <option>四年级</option><option>五年级</option><option>六年级</option><option>师范生</option>
-          </select>
-        </div>
-        <div class="form-group" style="margin-bottom:12px;">
-          <select id="modalRole" style="width:100%; padding:12px; border-radius:60px; border:2px solid #e2ecd9; margin-bottom:12px;">
-            <option value="">-- 请选择身份 --</option>
-            <option>学生</option><option>老师</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <input type="text" id="modalName" placeholder="昵称" style="width:100%; padding:12px; border-radius:60px; border:2px solid #e2ecd9;">
-        </div>
-        <button id="saveUserInfo" class="lang-link" style="margin-top:12px;">✨ 进入德育园地 →</button>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-    
-    document.getElementById('saveUserInfo').onclick = () => {
-      const grade = document.getElementById('modalGrade').value;
-      const role = document.getElementById('modalRole').value;
-      const name = document.getElementById('modalName').value.trim();
-      if (!grade || !role || !name) {
-        alert('请填写完整信息');
-        return;
-      }
-      currentUser = { grade, role, name };
-      localStorage.setItem('moralEduUserInfo', JSON.stringify(currentUser));
-      document.getElementById('userWelcomeDisplay').innerHTML = `👋 ${currentUser.name}（${currentUser.grade}${currentUser.role}）`;
-      overlay.remove();
-    };
-  }
-
-  // ==================== 老师模式 ====================
-  function toggleTeacherMode() {
-    if (isTeacherMode) {
-      isTeacherMode = false;
+// ==================== 老师模式 ====================
+function toggleTeacherMode() {
+  if (isTeacherMode) {
+    isTeacherMode = false;
+    updateTeacherUI();
+    alert("已退出老师模式");
+  } else {
+    const pwd = prompt("请输入老师密码：");
+    if (pwd === TEACHER_PASSWORD) {
+      isTeacherMode = true;
       updateTeacherUI();
-      alert("已退出老师模式");
-    } else {
-      const pwd = prompt("请输入老师密码：");
-      if (pwd === TEACHER_PASSWORD) {
-        isTeacherMode = true;
-        updateTeacherUI();
-        alert("✅ 老师模式已解锁！");
-      } else if (pwd !== null) alert("❌ 密码错误！");
-    }
+      alert("✅ 老师模式已解锁！");
+    } else if (pwd !== null) alert("❌ 密码错误！");
   }
-
-  function updateTeacherUI() {
-    const toggleBtn = document.getElementById('teacherToggleBtn');
-    const indicator = document.getElementById('teacherReplyIndicator');
-    const counselBtn = document.getElementById('counselBtn');
-    if (isTeacherMode) {
-      toggleBtn.textContent = '✅ 老师模式(点击退出)';
-      toggleBtn.style.background = '#5b8c4e';
-      toggleBtn.style.color = 'white';
-      indicator.style.display = 'block';
-      counselBtn.textContent = '👩‍🏫 老师回复';
-      counselBtn.style.background = '#5b8c4e';
-    } else {
-      toggleBtn.textContent = '🔑 老师登录';
-      toggleBtn.style.background = '#e2ecd9';
-      toggleBtn.style.color = '#2d4e1e';
-      indicator.style.display = 'none';
-      counselBtn.textContent = '🌙 匿名发布';
-      counselBtn.style.background = '#7fa86a';
-    }
+}
+function updateTeacherUI() {
+  const toggleBtn = document.getElementById('teacherToggleBtn');
+  const indicator = document.getElementById('teacherReplyIndicator');
+  const counselBtn = document.getElementById('counselBtn');
+  if (isTeacherMode) {
+    toggleBtn.textContent = '✅ 老师模式(点击退出)';
+    toggleBtn.style.background = '#5b8c4e';
+    toggleBtn.style.color = 'white';
+    indicator.style.display = 'block';
+    counselBtn.textContent = '👩‍🏫 老师回复';
+    counselBtn.style.background = '#5b8c4e';
+  } else {
+    toggleBtn.textContent = '🔑 老师登录';
+    toggleBtn.style.background = '#e2ecd9';
+    toggleBtn.style.color = '#2d4e1e';
+    indicator.style.display = 'none';
+    counselBtn.textContent = '🌙 匿名发布';
+    counselBtn.style.background = '#7fa86a';
   }
+}
 
-  // ==================== 按钮⑤：选择题弹窗 ====================
-  document.getElementById('quizBtn').onclick = () => {
-    showQuizModal();
+// ==================== 选择题弹窗（按钮⑤） ====================
+document.getElementById('quizBtn').onclick = () => {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="quiz-modal" style="max-width:500px; max-height:80vh; overflow-y:auto;">
+      <div style="font-size:2rem;">📋</div>
+      <h2>道德小测验</h2>
+      <div id="quizQuestionsContainer"></div>
+      <button id="submitQuizBtn" class="lang-link">✅ 提交答案</button>
+      <button class="modal-cancel" id="closeQuizModal">关闭</button>
+      <div id="quizFeedback" style="margin-top:16px;"></div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const container = document.getElementById('quizQuestionsContainer');
+  container.innerHTML = `
+    <div class="quiz-item" style="margin-bottom:20px;"><img src="https://i.ibb.co/HDj9cX3t/1.jpg" style="width:100%; border-radius:16px;"><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q1" value="A"> A. 举报别人对你发表仇恨言论。</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q1" value="B"> B. 向其他人发送宗教恶意评论。</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q1" value="C"> C. 只和朋友玩电子游戏。</label></div>
+    <div class="quiz-item" style="margin-bottom:20px;"><img src="https://i.ibb.co/Zz5FsY3Y/2.jpg" style="width:100%; border-radius:16px;"><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q2" value="A"> A. 分享朋友隐私故事。</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q2" value="B"> B. 举报网上恶意评论。</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q2" value="C"> C. 用更难听的骂回去。</label></div>
+    <div class="quiz-item" style="margin-bottom:20px;"><img src="https://i.ibb.co/PsKnmv0L/3.jpg" style="width:100%; border-radius:16px;"><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q3" value="A"> A. 有爱心</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q3" value="B"> B. 网络仇恨</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q3" value="C"> C. 责任感</label></div>
+    <div class="quiz-item" style="margin-bottom:20px;"><img src="https://i.ibb.co/5hxgqgWG/4.jpg" style="width:100%; border-radius:16px;"><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q4" value="A"> A. 会说两种语言</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q4" value="B"> B. 残疾人士</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q4" value="C"> C. 过高的人</label></div>
+    <div class="quiz-item"><img src="https://i.ibb.co/RGKC9xGf/5.jpg" style="width:100%; border-radius:16px;"><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q5" value="A"> A. 教师/家长/儿童热线</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q5" value="B"> B. 朋友表兄弟</label><label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q5" value="C"> C. 散布仇恨的人</label></div>
+  `;
+  document.getElementById('submitQuizBtn').onclick = () => {
+    const answers = { q1: 'A', q2: 'B', q3: 'B', q4: 'B', q5: 'A' };
+    let score = 0, result = '<div style="background:#eef5ea; border-radius:24px; padding:16px;">';
+    for (let i = 1; i <= 5; i++) {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      const isCorrect = selected && selected.value === answers[`q${i}`];
+      if (isCorrect) score++;
+      result += `<div style="margin-bottom:12px;"><strong>第${i}题：</strong> ${isCorrect ? '✅ 正确' : '❌ 错误'}<br>${!isCorrect ? `<span style="color:#7fa86a;">正确答案：${answers[`q${i}`]}</span><br>` : ''}</div>`;
+    }
+    result += `<div style="font-size:1.2rem; font-weight:bold; text-align:center;">得分：${score}/5</div></div>`;
+    document.getElementById('quizFeedback').innerHTML = result;
   };
+  document.getElementById('closeQuizModal').onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+};
 
-  function showQuizModal() {
-    const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    overlay.innerHTML = `
-      <div class="quiz-modal" style="max-width:500px; max-height:80vh; overflow-y:auto;">
-        <div style="font-size:2rem;">📋</div>
-        <h2 style="color:#2d4e1e;">道德小测验</h2>
-        <div id="quizQuestionsContainer"></div>
-        <button id="submitQuizBtn" class="lang-link" style="margin-top:12px;">✅ 提交答案</button>
-        <button class="modal-cancel" id="closeQuizModal">关闭</button>
-        <div id="quizFeedback" style="margin-top:16px;"></div>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-    
-    // 加载测验题目
-    const container = document.getElementById('quizQuestionsContainer');
-    container.innerHTML = `
-      <div class="quiz-item" style="margin-bottom:20px;">
-        <img src="https://i.ibb.co/HDj9cX3t/1.jpg" style="width:100%; border-radius:16px; margin-bottom:8px;">
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q1" value="A"> A. 举报别人对你发表仇恨言论。</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q1" value="B"> B. 向其他人发送宗教恶意评论。</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q1" value="C"> C. 只和朋友玩电子游戏。</label>
-      </div>
-      <div class="quiz-item" style="margin-bottom:20px;">
-        <img src="https://i.ibb.co/Zz5FsY3Y/2.jpg" style="width:100%; border-radius:16px; margin-bottom:8px;">
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q2" value="A"> A. 分享朋友隐私故事。</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q2" value="B"> B. 举报网上恶意评论。</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q2" value="C"> C. 用更难听的骂回去。</label>
-      </div>
-      <div class="quiz-item" style="margin-bottom:20px;">
-        <img src="https://i.ibb.co/PsKnmv0L/3.jpg" style="width:100%; border-radius:16px; margin-bottom:8px;">
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q3" value="A"> A. 有爱心</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q3" value="B"> B. 网络仇恨</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q3" value="C"> C. 责任感</label>
-      </div>
-      <div class="quiz-item" style="margin-bottom:20px;">
-        <img src="https://i.ibb.co/5hxgqgWG/4.jpg" style="width:100%; border-radius:16px; margin-bottom:8px;">
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q4" value="A"> A. 会说两种语言</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q4" value="B"> B. 残疾人士</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q4" value="C"> C. 过高的人</label>
-      </div>
-      <div class="quiz-item">
-        <img src="https://i.ibb.co/RGKC9xGf/5.jpg" style="width:100%; border-radius:16px; margin-bottom:8px;">
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q5" value="A"> A. 教师/家长/儿童热线</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px; margin-bottom:8px;"><input type="radio" name="q5" value="B"> B. 朋友表兄弟</label>
-        <label style="display:flex; align-items:center; gap:10px; padding:10px; border:2px solid #e2ecd9; border-radius:60px;"><input type="radio" name="q5" value="C"> C. 散布仇恨的人</label>
-      </div>
-    `;
-    
-    document.getElementById('submitQuizBtn').onclick = () => {
-      const answers = { q1: 'A', q2: 'B', q3: 'B', q4: 'B', q5: 'A' };
-      let score = 0;
-      let resultHtml = '<div style="background:#eef5ea; border-radius:24px; padding:16px;">';
-      for (let i = 1; i <= 5; i++) {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        const isCorrect = selected && selected.value === answers[`q${i}`];
-        if (isCorrect) score++;
-        resultHtml += `
-          <div style="margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid #d4e6ca;">
-            <strong>第${i}题：</strong> ${isCorrect ? '✅ 正确' : '❌ 错误'}<br>
-            ${!isCorrect ? `<span style="color:#7fa86a;">正确答案：${answers[`q${i}`]}</span><br>` : ''}
-          </div>
-        `;
+// ==================== 脏话过滤 & 留言板 ====================
+const bannedWords = ['傻逼', 'sb', 'fuck', 'shit', 'babi', 'bodoh'];
+function containsBadWord(text) { const lower = text.toLowerCase(); for (let w of bannedWords) if (lower.includes(w)) return true; return false; }
+function canSubmit() { const now = Date.now(); if (now - lastSubmitTime < SUBMIT_COOLDOWN) { alert('请勿频繁留言'); return false; } return true; }
+function recordSubmit() { lastSubmitTime = Date.now(); localStorage.setItem('moral_last_submit', lastSubmitTime); }
+async function loadAllMessages() {
+  try {
+    const res = await fetch(CONFIG.sheetApiUrl);
+    const data = await res.json();
+    let counselHtml = '', quoteHtml = '';
+    data.reverse().forEach(item => {
+      const content = item['留言'] || '';
+      if (content.startsWith('[质询]') || content.startsWith('[老师回复]')) {
+        const isTR = content.startsWith('[老师回复]');
+        const clean = content.replace('[老师回复]', '').replace('[质询]', '').trim();
+        counselHtml += `<div class="message-item" style="${isTR ? 'border-left:4px solid #7fa86a;' : ''}"><strong>${isTR ? '👩‍🏫 老师回复' : '🕶️ 匿名'}</strong><small style="float:right;">${item['时间戳'] || ''}</small><div>${escapeHtml(clean)}</div></div>`;
+      } else if (content.startsWith('[名言]')) {
+        quoteHtml += `<div class="message-item">✨ ${escapeHtml(content.replace('[名言]', ''))}</div>`;
       }
-      resultHtml += `<div style="font-size:1.2rem; font-weight:bold; text-align:center;">得分：${score}/5</div></div>`;
-      document.getElementById('quizFeedback').innerHTML = resultHtml;
-    };
-    
-    document.getElementById('closeQuizModal').onclick = () => overlay.remove();
-    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
-  }
+    });
+    document.getElementById('counselList').innerHTML = counselHtml || '<div class="empty-message">✨ 还没有质询</div>';
+    document.getElementById('quoteList').innerHTML = quoteHtml || '<div class="empty-message">✨ 还没有名言</div>';
+  } catch(e) { console.warn(e); }
+}
+function escapeHtml(str) { let d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+async function submitCounsel() {
+  let comment = document.getElementById('counselComment').value.trim();
+  if (!comment) { alert('请输入内容'); return; }
+  if (!canSubmit()) return;
+  if (containsBadWord(comment)) { alert('留言包含不适当用语'); return; }
+  const prefix = isTeacherMode ? '[老师回复]' : '[质询]';
+  const btn = document.getElementById('counselBtn');
+  btn.disabled = true; btn.textContent = '发送中...';
+  await fetch(CONFIG.googleScriptUrl, { method: 'POST', body: new URLSearchParams({ 'comment': prefix + ' ' + comment }) });
+  recordSubmit();
+  document.getElementById('counselComment').value = '';
+  alert(isTeacherMode ? '老师回复已发送' : '匿名发布成功');
+  loadAllMessages();
+  btn.disabled = false; btn.textContent = isTeacherMode ? '👩‍🏫 老师回复' : '🌙 匿名发布';
+}
+async function submitQuote() {
+  let comment = document.getElementById('quoteComment').value.trim();
+  if (!comment) { alert('请输入内容'); return; }
+  if (!canSubmit()) return;
+  if (containsBadWord(comment)) { alert('留言包含不适当用语'); return; }
+  const name = currentUser ? `${currentUser.name}（${currentUser.grade}${currentUser.role}）` : '匿名';
+  const btn = document.getElementById('quoteBtn');
+  btn.disabled = true; btn.textContent = '发送中...';
+  await fetch(CONFIG.googleScriptUrl, { method: 'POST', body: new URLSearchParams({ 'comment': '[名言] 【' + name + '】: ' + comment }) });
+  recordSubmit();
+  document.getElementById('quoteComment').value = '';
+  alert('发布成功');
+  loadAllMessages();
+  btn.disabled = false; btn.textContent = '🌟 署名发布';
+}
 
-  // ==================== 脏话过滤（简化版） ====================
-  const bannedWords = ['傻逼', 'sb', 'fuck', 'shit', 'babi', 'bodoh'];
-  function containsBadWord(text) {
-    const lower = text.toLowerCase();
-    for (let w of bannedWords) {
-      if (lower.includes(w)) return true;
-    }
-    return false;
-  }
-
-  function canSubmit() {
-    const now = Date.now();
-    if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
-      alert('请勿频繁留言，请稍后再试');
-      return false;
-    }
-    return true;
-  }
-  function recordSubmit() { lastSubmitTime = Date.now(); localStorage.setItem('moral_last_submit', lastSubmitTime); }
-
-  // ==================== 留言板 ====================
-  async function loadAllMessages() {
-    try {
-      const res = await fetch(CONFIG.sheetApiUrl);
-      const data = await res.json();
-      let counselHtml = '', quoteHtml = '';
-      data.reverse().forEach(item => {
-        const content = item['留言'] || '';
-        if (content.startsWith('[质询]') || content.startsWith('[老师回复]')) {
-          const isTR = content.startsWith('[老师回复]');
-          const clean = content.replace('[老师回复]', '').replace('[质询]', '').trim();
-          counselHtml += `<div class="message-item" style="${isTR ? 'border-left:4px solid #7fa86a;' : ''}">
-            <div style="display:flex; justify-content:space-between;"><strong>${isTR ? '👩‍🏫 老师回复' : '🕶️ 匿名'}</strong><small>${item['时间戳'] || ''}</small></div>
-            <div>${escapeHtml(clean)}</div>
-          </div>`;
-        } else if (content.startsWith('[名言]')) {
-          quoteHtml += `<div class="message-item">✨ ${escapeHtml(content.replace('[名言]', ''))}</div>`;
-        }
-      });
-      document.getElementById('counselList').innerHTML = counselHtml || '<div class="empty-message">✨ 还没有质询</div>';
-      document.getElementById('quoteList').innerHTML = quoteHtml || '<div class="empty-message">✨ 还没有名言</div>';
-    } catch(e) { console.warn(e); }
-  }
-  function escapeHtml(str) { let d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
-  async function submitCounsel() {
-    let comment = document.getElementById('counselComment').value.trim();
-    if (!comment) { alert('请输入内容'); return; }
-    if (!canSubmit()) return;
-    if (containsBadWord(comment)) { alert('留言包含不适当用语，请文明交流'); return; }
-    const prefix = isTeacherMode ? '[老师回复]' : '[质询]';
-    const btn = document.getElementById('counselBtn');
-    btn.disabled = true; btn.textContent = '发送中...';
-    await fetch(CONFIG.googleScriptUrl, { method: 'POST', body: new URLSearchParams({ 'comment': prefix + ' ' + comment }) });
-    recordSubmit();
-    document.getElementById('counselComment').value = '';
-    alert(isTeacherMode ? '老师回复已发送' : '匿名发布成功');
-    loadAllMessages();
-    btn.disabled = false; btn.textContent = isTeacherMode ? '👩‍🏫 老师回复' : '🌙 匿名发布';
-  }
-  async function submitQuote() {
-    let comment = document.getElementById('quoteComment').value.trim();
-    if (!comment) { alert('请输入内容'); return; }
-    if (!canSubmit()) return;
-    if (containsBadWord(comment)) { alert('留言包含不适当用语'); return; }
-    const name = currentUser ? `${currentUser.name}（${currentUser.grade}${currentUser.role}）` : '匿名';
-    const btn = document.getElementById('quoteBtn');
-    btn.disabled = true; btn.textContent = '发送中...';
-    await fetch(CONFIG.googleScriptUrl, { method: 'POST', body: new URLSearchParams({ 'comment': '[名言] 【' + name + '】: ' + comment }) });
-    recordSubmit();
-    document.getElementById('quoteComment').value = '';
-    alert('发布成功');
-    loadAllMessages();
-    btn.disabled = false; btn.textContent = '🌟 署名发布';
-  }
-
-  init();
+init();
 </script>
 </body>
 </html>
