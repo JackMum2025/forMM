@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>德润童心 · 师范德育专题</title>
+  <title>Moral Fantastic · 德润童心</title>
   <style>
-    /* ========== 样式美化 ========== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Nunito', 'Segoe UI', 'Quicksand', '微软雅黑', system-ui, sans-serif;
@@ -40,7 +39,7 @@
     .logo-text { font-size: 1.5rem; font-weight: 800; color: #2d4e1e; }
     .lang-badge { background: #eef5ea; border-radius: 40px; padding: 6px 16px; font-size: 0.8rem; font-weight: 600; color: #4a6e3a; }
 
-    /* 屏幕容器 - 保留原有效果 */
+    /* 屏幕容器 */
     .screen {
       position: fixed;
       top: 0;
@@ -68,7 +67,6 @@
     }
     .card-icon { font-size: 48px; text-align: center; margin-bottom: 8px; }
     h1 { color: #2d4e1e; font-size: 1.6rem; font-weight: 700; text-align: center; }
-    h2 { color: #2d4e1e; font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; }
     .subtitle { color: #6b7c63; text-align: center; font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid #e2ecd9; }
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; color: #3a5e2b; font-weight: 600; margin-bottom: 8px; }
@@ -109,41 +107,8 @@
     .error-message { color: #c44; font-size: 0.8rem; display: none; margin-top: 8px; }
     .privacy-note { font-size: 0.7rem; color: #9bb88b; text-align: center; margin-top: 16px; }
 
-    /* 测验选项 */
-    .quiz-question {
-      margin-bottom: 28px;
-      background: #fefef9;
-      border-radius: 28px;
-      padding: 16px;
-      border: 1px solid #e2ecd9;
-    }
-    .quiz-image {
-      width: 100%;
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
-    .quiz-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: white;
-      border: 2px solid #e2ecd9;
-      border-radius: 60px;
-      padding: 12px 18px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-    .quiz-option:hover { border-color: #7fa86a; background: #f8fbf6; transform: translateX(4px); }
-    .quiz-option.selected { border-color: #7fa86a; background: #eef5ea; }
-    .quiz-option input { width: 20px; height: 20px; accent-color: #7fa86a; margin: 0; }
-
     /* 主页面 */
-    #quizScreen, #mainContent, #classroomPage { display: none; }
+    #mainContent { display: none; }
     header {
       background-color: #eef5ea;
       padding: 12px 20px;
@@ -309,33 +274,6 @@
       .circle-btn span:first-child { font-size: 1.3rem; }
     }
 
-    /* 今日课堂页面 */
-    .classroom-container { max-width: 800px; margin: 0 auto; padding: 1rem 0.8rem 2rem; }
-    .case-img { width: 100%; border-radius: 24px; margin-bottom: 12px; }
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .section-title span:first-child { font-size: 1.3rem; }
-    .section-title span:last-child { font-weight: 700; color: #2d4e1e; }
-    .back-button {
-      background: #7fa86a;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 60px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      max-width: 300px;
-      margin: 0 auto;
-      display: block;
-    }
-    .back-button:hover { background: #5b8c4e; transform: translateY(-2px); }
-
     /* 横屏提示 */
     #rotateOverlay {
       display: none;
@@ -379,27 +317,9 @@
       <div class="form-group"><label>👤 身份</label><select id="role" required><option value="">-- 请选择 --</option><option value="学生">学生</option><option value="老师">老师</option></select></div>
       <div class="form-group"><label>✏️ 名字/昵称</label><input type="text" id="userName" placeholder="例如：小明" maxlength="20" required></div>
       <div class="error-message" id="welcomeError">请填写完整信息</div>
-      <button type="button" class="btn" onclick="goToQuiz()">📝 开始道德小测验 →</button>
+      <button type="button" class="btn" onclick="goToMain()">✨ 进入德育园地 →</button>
     </form>
     <div class="privacy-note">你的信息仅用于本次课堂互动</div>
-  </div>
-</div>
-
-<!-- ==================== 选择题页面 ==================== -->
-<div id="quizScreen" class="screen">
-  <div class="card">
-    <div class="card-icon">📋</div>
-    <h2>道德小测验</h2>
-    <div class="subtitle" id="quizUserName"></div>
-    <form onsubmit="return false;">
-      <div class="quiz-question"><img src="https://i.ibb.co/HDj9cX3t/1.jpg" class="quiz-image"><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q1" value="A"> A. 举报别人对你发表仇恨言论。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q1" value="B"> B. 向其他人发送有关宗教的恶意评论。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q1" value="C"> C. 只和学校的朋友一起玩电子游戏。</label></div>
-      <div class="quiz-question"><img src="https://i.ibb.co/Zz5FsY3Y/2.jpg" class="quiz-image"><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q2" value="A"> A. 分享朋友的私人故事。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q2" value="B"> B. 举报网上针对性别的恶意评论。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q2" value="C"> C. 用更难听的话来辱骂欺凌者。</label></div>
-      <div class="quiz-question"><img src="https://i.ibb.co/PsKnmv0L/3.jpg" class="quiz-image"><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q3" value="A"> A. 有爱心。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q3" value="B"> B. 网络仇恨。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q3" value="C"> C. 有责任感。</label></div>
-      <div class="quiz-question"><img src="https://i.ibb.co/5hxgqgWG/4.jpg" class="quiz-image"><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q4" value="A"> A. 会说两种语言。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q4" value="B"> B. 残疾人士。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q4" value="C"> C. 过高的人。</label></div>
-      <div class="quiz-question"><img src="https://i.ibb.co/RGKC9xGf/5.jpg" class="quiz-image"><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q5" value="A"> A. 教师，家长或儿童热线咨询员。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q5" value="B"> B. 朋友，兄弟或表兄弟。</label><label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q5" value="C"> C. 散播和评论仇恨言论的人。</label></div>
-      <div class="error-message" id="quizError">请回答所有题目</div>
-      <button type="button" class="btn" onclick="submitQuiz()">✅ 提交答案</button>
-    </form>
   </div>
 </div>
 
@@ -479,44 +399,8 @@
   <footer><p>© 2026 Moral Fantastic · 师范学校（课程作业） | 德育如细雨，润物细无声</p></footer>
 </div>
 
-<!-- ==================== 今日课堂独立页面（弹窗） ==================== -->
-<div id="classroomPage" style="display:none;">
-  <div style="background: #f8fbf7; min-height: 100vh; padding-bottom: 2rem;">
-    <div style="background: #d4e6ca; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-      <h1 style="color:#2d4e1e; font-size: 1.3rem; margin:0;">📖 今日课堂 · 网络霸凌</h1>
-      <button id="closeClassroomBtn" style="background:#c44; color:white; border:none; padding:6px 16px; border-radius:40px; cursor:pointer;">✕ 关闭</button>
-    </div>
-    <div class="classroom-container">
-      <div class="section-title"><span>📰</span><span>真实案例 · 网络霸凌的代价</span></div>
-      <img src="https://i.ibb.co/RGjNjV4k/Pg-1-1.jpg" class="case-img">
-      <img src="https://i.ibb.co/rRZStjbM/image.jpg" class="case-img">
-      <img src="https://i.ibb.co/35crzWnX/PG-2-1.jpg" class="case-img">
-      <p style="color:#8aa67d; font-size:0.7rem; text-align:center;">以上为真实新闻案例，警惕网络霸凌</p>
-
-      <div class="section-title"><span>▶️</span><span>网络霸凌宣传影片</span></div>
-      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:24px; margin-bottom:20px;">
-        <iframe src="https://www.youtube.com/embed/ZZKRRh9TjKo" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allowfullscreen></iframe>
-      </div>
-
-      <div class="section-title"><span>📊</span><span>课堂PPT · 网络霸凌</span></div>
-      <div style="background:#eef5ea; border-radius:24px; padding:20px; text-align:center;">
-        <p style="color:#5b8c4e;">📎 PPT 待上传</p>
-      </div>
-
-      <div class="section-title"><span>🎬</span><span>互动学习：如何应对网络霸凌</span></div>
-      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:24px;">
-        <iframe src="https://learningapps.org/watch?v=pgfbevg3a26" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allowfullscreen></iframe>
-      </div>
-
-      <div style="text-align:center; margin-top: 24px;">
-        <button id="backToMainBtn" class="back-button">⬅ 返回德育园地</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
-// ==================== 以下代码完整保留原功能 ====================
+// ==================== 全局变量 ====================
 let currentUser = null;
 let isTeacherMode = false;
 let violationCount = parseInt(localStorage.getItem('moral_violation_count') || '0');
@@ -554,27 +438,19 @@ document.addEventListener('keydown',function(e){
   if(e.ctrlKey&&e.shiftKey&&e.key==='C'){e.preventDefault();return false;}
 });
 
-// 今日课堂页面切换（弹窗）
-function showClassroomPage() {
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('classroomPage').style.display = 'block';
-    window.scrollTo(0, 0);
-}
-function hideClassroomPage() {
-    document.getElementById('classroomPage').style.display = 'none';
-    document.getElementById('mainContent').style.display = 'block';
-}
-
-function goToQuiz(){
+// ========== 修改：个人资料提交后直接进入主页 ==========
+function goToMain(){
   var grade=document.getElementById('grade').value;
   var role=document.getElementById('role').value;
   var name=document.getElementById('userName').value.trim();
   if(!grade||!role||!name){document.getElementById('welcomeError').style.display='block';return;}
   currentUser={grade:grade,role:role,name:name,timestamp:new Date().toISOString()};
   localStorage.setItem('moralEduUserInfo',JSON.stringify(currentUser));
-  document.getElementById('quizUserName').textContent=name+'（'+grade+role+'）';
+  document.getElementById('userWelcomeDisplay').textContent='👋 '+currentUser.name+'（'+currentUser.grade+currentUser.role+'）';
   document.getElementById('welcomeScreen').style.display='none';
-  document.getElementById('quizScreen').style.display='flex';
+  document.getElementById('mainContent').style.display='block';
+  loadAllMessages();
+  setInterval(loadAllMessages,30000);
 }
 
 // 脏话过滤
@@ -645,47 +521,6 @@ function updateTeacherUI(){
     toggleBtn.textContent='🔑 老师登录';toggleBtn.style.background='#d4e6ca';toggleBtn.style.color='#2d4e1e';
     indicator.style.display='none';counselBtn.textContent='🌙 匿名发布';counselBtn.style.background='#7fa86a';
   }
-}
-
-// 测验
-function selectOption(element){
-  var parent=element.parentElement;
-  parent.querySelectorAll('.quiz-option').forEach(function(opt){opt.classList.remove('selected');});
-  element.classList.add('selected');element.querySelector('input').checked=true;
-}
-function submitQuiz(){
-  var q1=document.querySelector('input[name="q1"]:checked'),q2=document.querySelector('input[name="q2"]:checked'),q3=document.querySelector('input[name="q3"]:checked'),q4=document.querySelector('input[name="q4"]:checked'),q5=document.querySelector('input[name="q5"]:checked');
-  if(!q1||!q2||!q3||!q4||!q5){document.getElementById('quizError').textContent='请回答所有题目';document.getElementById('quizError').style.display='block';return;}
-  var answers={q1:'A',q2:'B',q3:'B',q4:'B',q5:'A'};
-  var answerTexts={
-    q1:{correct:'A. 举报别人对你发表仇恨言论。',explanation:'因为这有助于维护网络健康。'},
-    q2:{correct:'B. 举报网上针对性别的恶意评论。',explanation:'这是一种维护网络礼仪的积极行为。'},
-    q3:{correct:'B. 网络仇恨。',explanation:'网络上发言前需三思，不可以伤害别人。'},
-    q4:{correct:'B. 残疾人士。',explanation:'做一个有道德的人，一起保护他们免受不必要的伤害。'},
-    q5:{correct:'A. 教师，家长或儿童热线咨询员。',explanation:'他们可以提供心理辅导，并采取正确行动。'}
-  };
-  var score=0;
-  if(q1.value===answers.q1)score++;if(q2.value===answers.q2)score++;if(q3.value===answers.q3)score++;if(q4.value===answers.q4)score++;if(q5.value===answers.q5)score++;
-  document.getElementById('quizError').style.display='none';
-  localStorage.setItem('moralQuizAnswers',JSON.stringify({q1:q1.value,q2:q2.value,q3:q3.value,q4:q4.value,q5:q5.value,score:score}));
-  showQuizFeedback(score,{q1:q1.value,q2:q2.value,q3:q3.value,q4:q4.value,q5:q5.value},answers,answerTexts);
-}
-function showQuizFeedback(score,userAnswers,correctAnswers,answerTexts){
-  var overlay=document.createElement('div');overlay.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;';
-  var modal=document.createElement('div');modal.style.cssText='background:white;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;padding:1.5rem 1.2rem;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,0.2);';
-  var feedbackHtml='';var questionLabels=['第1题','第2题','第3题','第4题','第5题'];
-  for(var i=1;i<=5;i++){var qKey='q'+i,userAnswer=userAnswers[qKey],isCorrect=userAnswer===correctAnswers[qKey];feedbackHtml+='<div style="margin-bottom:1rem;padding-bottom:0.8rem;border-bottom:1px solid #e2ecdc;"><div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.3rem;"><span style="font-weight:500;color:#2d4e1e;">'+questionLabels[i-1]+'</span>'+(isCorrect?'<span style="color:#7fa86a;font-size:0.85rem;">✅ 回答正确</span>':'<span style="color:#c44;font-size:0.85rem;">❌ 回答错误</span>')+'</div>'+(!isCorrect?'<div style="background:#fef8e7;padding:0.6rem;border-radius:10px;margin-top:0.4rem;"><p style="color:#6b7c63;font-size:0.85rem;">你的答案：'+userAnswer+'</p><p style="color:#2d4e1e;font-size:0.85rem;margin-top:0.2rem;">✅ 正确答案：'+answerTexts[qKey].correct+'</p><p style="color:#7fa86a;font-size:0.8rem;margin-top:0.2rem;">💡 '+answerTexts[qKey].explanation+'</p></div>':'')+'</div>';}
-  var isFull=score===5;
-  modal.innerHTML='<div style="text-align:center;margin-bottom:1rem;"><div style="font-size:2.5rem;">'+(isFull?'🎉🏆':'📝')+'</div><h2 style="color:#2d4e1e;font-size:1.4rem;">'+(isFull?'道德满分！太棒了！':'测验完成！')+'</h2><p style="color:#43673a;font-size:1rem;">'+(isFull?'你真是个品德小达人！✨':'继续加油！💪')+'</p></div><div style="margin-bottom:1rem;">'+feedbackHtml+'</div><p style="color:#8aa67d;text-align:center;margin-bottom:0.8rem;font-size:0.85rem;">'+(isFull?'你已掌握这些道德知识！':'记住正确答案，下次一定全对！')+'</p><button id="enterMainFromFeedback" style="background:#7fa86a;color:white;border:none;padding:0.7rem 1.5rem;font-size:1rem;border-radius:40px;cursor:pointer;width:100%;">🌸 进入德育园地 →</button>';
-  overlay.appendChild(modal);document.body.appendChild(overlay);
-  document.getElementById('enterMainFromFeedback').onclick=function(){overlay.remove();enterMainContent(score);};
-  overlay.onclick=function(e){if(e.target===overlay){overlay.remove();enterMainContent(score);}};
-}
-function enterMainContent(score){
-  document.getElementById('quizScreen').style.display='none';document.getElementById('mainContent').style.display='block';
-  var scoreText=score===5?'道德满分 '+score+'/5 🏆':'得分 '+score+'/5 💪';
-  document.getElementById('userWelcomeDisplay').textContent='👋 '+currentUser.name+'（'+currentUser.grade+currentUser.role+'）· '+scoreText;
-  loadAllMessages();setInterval(loadAllMessages,30000);
 }
 
 // 课程下拉
@@ -769,27 +604,18 @@ async function loadAllMessages(){
 }
 function escapeHtml(text){var div=document.createElement('div');div.textContent=text;return div.innerHTML;}
 
-// 绑定今日课堂按钮（独立页面形式，也可保留弹窗）
+// ========== 绑定“进入今日课堂”按钮：直接跳转到 ppt.html ==========
 document.addEventListener('DOMContentLoaded',function(){
   initBannedWords();checkOrientation();
   var openBtn = document.getElementById('openClassroomBtn');
-  var closeBtn = document.getElementById('closeClassroomBtn');
-  var backBtn = document.getElementById('backToMainBtn');
-  if (openBtn) openBtn.onclick = showClassroomPage;
-  if (closeBtn) closeBtn.onclick = hideClassroomPage;
-  if (backBtn) backBtn.onclick = hideClassroomPage;
+  if (openBtn) openBtn.onclick = function(){ window.location.href = 'ppt.html'; };
   var saved=localStorage.getItem('moralEduUserInfo');
   if(saved){
-    currentUser=JSON.parse(saved);var savedQuiz=localStorage.getItem('moralQuizAnswers');
-    if(savedQuiz){
-      document.getElementById('welcomeScreen').style.display='none';document.getElementById('quizScreen').style.display='none';document.getElementById('mainContent').style.display='block';
-      var quiz=JSON.parse(savedQuiz);var scoreText=quiz.score===5?'道德满分 '+quiz.score+'/5 🏆':'得分 '+quiz.score+'/5 💪';
-      document.getElementById('userWelcomeDisplay').textContent='👋 '+currentUser.name+'（'+currentUser.grade+currentUser.role+'）· '+scoreText;
-      loadAllMessages();setInterval(loadAllMessages,30000);
-    }else{
-      document.getElementById('welcomeScreen').style.display='none';document.getElementById('quizScreen').style.display='flex';
-      document.getElementById('quizUserName').textContent=currentUser.name+'（'+currentUser.grade+currentUser.role+'）';
-    }
+    currentUser=JSON.parse(saved);
+    document.getElementById('welcomeScreen').style.display='none';
+    document.getElementById('mainContent').style.display='block';
+    document.getElementById('userWelcomeDisplay').textContent='👋 '+currentUser.name+'（'+currentUser.grade+currentUser.role+'）';
+    loadAllMessages();setInterval(loadAllMessages,30000);
   }
 });
 </script>
