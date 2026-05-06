@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Moral Fantastic · Menyuburkan Moral Muda</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      touch-action: manipulation;
+    }
+    body {
+      font-family: 'Nunito', 'Segoe UI', 'Quicksand', system-ui, sans-serif;
+      background: #ffffff;
+      color: #d94f7a;
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    input, textarea {
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    select, input, textarea, button {
+      font-size: 16px !important;
+    }
+    /* 置顶导航栏 (sticky) */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid #ffe0e8;
+      padding: 0.7rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      font-size: 2rem;
+      animation: bounce 2s infinite ease;
+    }
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e8436e, #ff99bb);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    /* 卡片与通用组件 */
+    .card, .board-card, .video-container, .game-container {
+      background: white;
+      border-radius: 32px;
+      border: 1px solid #ffe2ec;
+      box-shadow: 0 6px 14px rgba(232, 67, 110, 0.05);
+    }
+    .btn, .btn-sm, .dropdown-btn, .back-button, .quiz-option {
+      background: #ff99bb;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .btn:hover, .btn-sm:hover, .dropdown-btn:hover {
+      background: #ff7aa6;
+      transform: translateY(-2px);
+    }
+    .quiz-option {
+      background: white;
+      color: #d94f7a;
+      border: 2px solid #ffe2ec;
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.7rem;
+    }
+    .quiz-option.selected {
+      border-color: #ff99bb;
+      background: #fff2f6;
+    }
+    input, select, textarea {
+      border: 2px solid #ffe2ec;
+      border-radius: 60px;
+      padding: 0.7rem;
+      width: 100%;
+      font-family: inherit;
+      background: white;
+    }
+    .screen {
+      background: #ffffff;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .error-message {
+      color: #e8436e;
+      font-size: 0.85rem;
+      display: none;
+      margin-top: 0.3rem;
+    }
+    footer {
+      background: #ffe6ef;
+      padding: 1rem;
+      text-align: center;
+      color: #c54e74;
+      margin-top: 1rem;
+      border-radius: 32px;
+    }
+    .dropdown-content {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid #ffe2ec;
+    }
+    .dropdown-item {
+      padding: 0.7rem 1.2rem;
+      cursor: pointer;
+      border-bottom: 1px solid #ffe2ec;
+    }
+    .dropdown-item:hover {
+      background: #fff2f6;
+    }
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+    .today-topic, .board-badge {
+      background: #ffe2ec;
+      border-radius: 30px;
+      padding: 0.2rem 1rem;
+      display: inline-block;
+    }
+    .message-item {
+      border-bottom: 1px solid #ffe2ec;
+      padding: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+    .message-item:last-child {
+      border-bottom: none;
+    }
+    .board-tip {
+      background: #fff2f6;
+      padding: 0.5rem;
+      border-radius: 20px;
+      margin: 0.5rem 0;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+    .quiz-image {
+      max-height: 150px;
+      border-radius: 16px;
+      margin-bottom: 0.5rem;
+    }
+    #rotateOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      flex-direction: column;
+    }
+    #rotateOverlay.active {
+      display: flex;
+    }
+    .back-btn {
+      background: #fce4ec;
+      color: #e8436e;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="rotateOverlay">
+  <div style="font-size: 3rem; animation: rotatePhone 1.5s ease-in-out infinite;">📱</div>
+  <p>Sila putar telefon ke mod potret<br><span style="font-size:1rem;">请将手机转回竖屏模式</span></p>
+</div>
+
+<!-- 置顶导航栏 -->
+<div class="sticky-header">
+  <div class="logo-area">
+    <div class="logo-icon">🌸</div>
+    <div class="logo-text">Moral Fantastic</div>
+  </div>
+  <div><span style="background:#ffe0e8; border-radius:40px; padding:6px 14px;">Bahasa Melayu</span></div>
+</div>
+
+<!-- ==================== Halaman Maklumat Peribadi ==================== -->
+<div id="welcomeScreen" class="screen" style="display: flex;">
+  <div class="card" style="max-width: 500px; width: 100%; padding: 1.8rem;">
+    <div style="font-size: 3rem; text-align: center;">🌱</div>
+    <h1 style="color: #e8436e; text-align: center;">Menyuburkan Moral Muda</h1>
+    <div class="subtitle" style="text-align: center; margin-bottom: 1rem;">Sila beritahu kami siapa anda</div>
+    <form onsubmit="return false;">
+      <div class="form-group">
+        <label>Tahun</label>
+        <select id="grade" required>
+          <option value="">-- Sila pilih --</option>
+          <option value="Tahun 1">Tahun 1</option>
+          <option value="Tahun 2">Tahun 2</option>
+          <option value="Tahun 3">Tahun 3</option>
+          <option value="Tahun 4">Tahun 4</option>
+          <option value="Tahun 5">Tahun 5</option>
+          <option value="Tahun 6">Tahun 6</option>
+          <option value="Pelajar IPG">Pelajar IPG</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Peranan</label>
+        <select id="role" required>
+          <option value="">-- Sila pilih --</option>
+          <option value="Pelajar">Pelajar</option>
+          <option value="Guru">Guru</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nama / Gelaran</label>
+        <input type="text" id="userName" placeholder="Cth: Ali" maxlength="20" required>
+      </div>
+      <div class="error-message" id="welcomeError">Sila isi maklumat lengkap</div>
+      <button type="button" class="btn" style="width: 100%;" onclick="goToQuiz()">📝 Mulakan Kuiz Moral →</button>
+    </form>
+    <div class="privacy-note" style="text-align: center; margin-top: 1rem; font-size: 0.75rem; color: #e08aac;">Maklumat anda hanya untuk interaksi kelas ini</div>
+  </div>
+</div>
+
+<!-- ==================== Halaman Kuiz Moral ==================== -->
+<div id="quizScreen" class="screen" style="display: none;">
+  <div class="card" style="max-width: 550px; width: 100%; padding: 1.5rem;">
+    <div style="font-size: 2.5rem; text-align: center;">📋</div>
+    <h2 style="color: #e8436e;">Kuiz Moral</h2>
+    <div class="subtitle" id="quizUserName" style="text-align: center;"></div>
+    <form onsubmit="return false;">
+      <!-- Soalan 1 -->
+      <div class="quiz-question">
+        <img src="https://i.ibb.co/HDj9cX3t/1.jpg" class="quiz-image">
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q1" value="A"> A. Laporkan seseorang yang menghantar komen buruk terhadap anda.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q1" value="B"> B. Menghantar komen buruk tentang agama orang lain.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q1" value="C"> C. Saya hanya bermain permainan digital dengan rakan sekolah saya.</label>
+      </div>
+      <!-- Soalan 2 -->
+      <div class="quiz-question">
+        <img src="https://i.ibb.co/Zz5FsY3Y/2.jpg" class="quiz-image">
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q2" value="A"> A. Kongsikan kisah peribadi rakan.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q2" value="B"> B. Laporkan komen buruk atas talian.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q2" value="C"> C. Gunakan bahasa yang lebih kasar untuk melawan pembuli.</label>
+      </div>
+      <!-- Soalan 3 -->
+      <div class="quiz-question">
+        <img src="https://i.ibb.co/PsKnmv0L/3.jpg" class="quiz-image">
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q3" value="A"> A. Kasih sayang.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q3" value="B"> B. Kebencian Internet.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q3" value="C"> C. Bertanggungjawab.</label>
+      </div>
+      <!-- Soalan 4 -->
+      <div class="quiz-question">
+        <img src="https://i.ibb.co/5hxgqgWG/4.jpg" class="quiz-image">
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q4" value="A"> A. Boleh bercakap dalam dua bahasa.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q4" value="B"> B. Orang Kecacatan.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q4" value="C"> C. Orang yang terlalu tinggi.</label>
+      </div>
+      <!-- Soalan 5 -->
+      <div class="quiz-question">
+        <img src="https://i.ibb.co/RGKC9xGf/5.jpg" class="quiz-image">
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q5" value="A"> A. Guru, ibu bapa atau kaunselor hotline kanak-kanak.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q5" value="B"> B. Kawan, abang atau sepupu.</label>
+        <label class="quiz-option" onclick="selectOption(this)"><input type="radio" name="q5" value="C"> C. Orang yang menyebar atau orang yang komen buruk.</label>
+      </div>
+      <div class="error-message" id="quizError">Sila jawab semua soalan</div>
+      <button type="button" class="btn" style="width: 100%;" onclick="submitQuiz()">✅ Hantar Jawapan</button>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== Halaman Utama (Taman Moral) ==================== -->
+<div id="mainContent" style="display: none; background: #ffffff;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 1rem;">
+    <!-- Header dengan ucapan dan navigasi -->
+    <div style="background: white; border-radius: 32px; padding: 0.8rem 1rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border: 1px solid #ffe2ec;">
+      <span id="userWelcomeDisplay" style="color: #e8436e; font-weight: bold;"></span>
+      <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+        <div class="dropdown" style="position: relative;">
+          <button type="button" class="dropdown-btn" onclick="toggleDropdown()">📚 Topik Lain ▼</button>
+          <div class="dropdown-content" id="dropdownMenu" style="display: none; position: absolute; background: white; min-width: 220px; border-radius: 20px; border: 1px solid #ffe2ec; z-index: 100;">
+            <div id="gradeList">
+              <div class="dropdown-item" onclick="showCourses('一年级')">📖 Tahun 1</div>
+              <div class="dropdown-item" onclick="showCourses('二年级')">📖 Tahun 2</div>
+              <div class="dropdown-item" onclick="showCourses('三年级')">📖 Tahun 3</div>
+              <div class="dropdown-item" onclick="showCourses('四年级')">📖 Tahun 4</div>
+              <div class="dropdown-item" onclick="showCourses('五年级')">📖 Tahun 5</div>
+              <div class="dropdown-item" onclick="showCourses('六年级')">📖 Tahun 6</div>
+            </div>
+            <div id="courseList" style="display: none;">
+              <div class="dropdown-item back-btn" onclick="backToGrades()">← Kembali</div>
+              <div id="courseItems"></div>
+            </div>
+          </div>
+        </div>
+        <div class="today-topic">📌 Topik Hari Ini: Buli Siber</div>
+        <button id="openClassroomBtn" style="background: #ff99bb; border: none; border-radius: 40px; padding: 6px 16px; color: white; font-weight: bold;">📖 Masuki Kelas →</button>
+      </div>
+    </div>
+
+    <!-- Slogan gambar -->
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <img src="https://i.ibb.co/VWxhBjJQ/Cute-Slogan.jpg" alt="Slogan" style="width: 100%; max-width: 800px; border-radius: 20px;">
+    </div>
+
+    <!-- Permainan Interaktif Moral (4 games, switchable) -->
+    <section class="game-section" style="margin: 1rem 0;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+        <h2 style="color: #e8436e;">🎮 Permainan Interaktif Moral</h2>
+        <span class="board-badge">📱 Boleh Guna Telefon</span>
+      </div>
+      <div class="game-selector">
+        <select id="gameSelect" onchange="switchGame(this.value)" style="margin-bottom: 0.5rem;">
+          <option value="0">🛡️ Pengawal Siber</option>
+          <option value="1">🛡️ Pengawal Siber II</option>
+          <option value="2">🛡️ Pengawal Siber III</option>
+          <option value="3">🛡️ Pengawal Siber IIII</option>
+        </select>
+      </div>
+      <div class="game-container" style="padding: 0.5rem;">
+        <div id="gameWrapper"><iframe src="cyber-guardian.html" style="width: 100%; height: 450px; border: none; border-radius: 24px;"></iframe></div>
+        <div class="game-note" id="gameNote" style="text-align: center; margin-top: 0.5rem; color: #e08aac;">🛡️ Pengawal Siber - Halang buli, lindungi dunia siber!</div>
+      </div>
+    </section>
+
+    <!-- Dinding Luahan Tanpa Nama -->
+    <div class="board-card" style="padding: 1rem; margin: 1rem 0;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <h2 style="color: #e8436e;">🌙 Dinding Luahan Tanpa Nama</h2>
+        <button id="teacherToggleBtn" onclick="toggleTeacherMode()" style="background: #ffbfd1; border: none; border-radius: 40px; padding: 6px 12px;">🔑 Log Masuk Guru</button>
+      </div>
+      <div class="board-tip">💬 Ada masalah atau soalan? Luah di sini tanpa nama. Guru akan lihat dan balas.</div>
+      <div class="message-form">
+        <textarea id="counselComment" placeholder="Tulis masalah atau soalan anda..."></textarea>
+        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+          <button type="button" class="btn-sm" id="counselBtn" onclick="submitCounsel()" style="flex: 2;">🌙 Hantar Tanpa Nama</button>
+          <button type="button" class="btn-sm" id="teacherReplyIndicator" style="flex: 1; background: #a8c99b; display: none;" disabled>👩‍🏫 Mod Guru</button>
+        </div>
+      </div>
+      <div class="message-list" id="counselList" style="margin-top: 1rem;">Sedang memuat...</div>
+    </div>
+
+    <!-- Dinding Kata Semangat -->
+    <div class="board-card" style="padding: 1rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="color: #e8436e;">🌟 Dinding Kata Semangat</h2>
+        <span class="board-badge">✏️ Kongsi Beridentiti</span>
+      </div>
+      <div class="board-tip">✨ Kongsi kata mutiara atau semangat, sebarkan positif.</div>
+      <div class="message-form">
+        <textarea id="quoteComment" placeholder="Tulis kata mutiara atau semangat..."></textarea>
+        <button type="button" class="btn-sm" id="quoteBtn" onclick="submitQuote()" style="margin-top: 0.5rem;">🌟 Hantar Beridentiti</button>
+      </div>
+      <div class="message-list" id="quoteList" style="margin-top: 1rem;">Sedang memuat...</div>
+    </div>
+    <footer>
+      <p>2026 Moral Fantastic - Tugasan Kursus IPG | Moral bagai hujan renyai, menyubur tanpa bunyi</p>
+    </footer>
+  </div>
+</div>
+
+<!-- ==================== Halaman Kelas Hari Ini ==================== -->
+<div id="classroomPage" style="display: none; background: #ffffff; min-height: 100vh; padding: 1rem;">
+  <div style="background: white; border-radius: 32px; padding: 1rem; border: 1px solid #ffe2ec;">
+    <button id="closeClassroomBtn" onclick="hideClassroomPage()" style="background: #e8436e; border: none; border-radius: 40px; padding: 6px 16px; color: white;">← Tutup</button>
+    <h2 style="color: #e8436e;">📖 Kelas Hari Ini · Buli Siber</h2>
+    <img src="https://i.ibb.co/RGjNjV4k/Pg-1-1.jpg" style="width: 100%; border-radius: 20px; margin: 0.5rem 0;">
+    <img src="https://i.ibb.co/rRZStjbM/image.jpg" style="width: 100%; border-radius: 20px; margin: 0.5rem 0;">
+    <img src="https://i.ibb.co/35crzWnX/PG-2-1.jpg" style="width: 100%; border-radius: 20px; margin: 0.5rem 0;">
+    <iframe width="100%" height="300" src="https://www.youtube.com/embed/ZZKRRh9TjKo" style="border-radius: 20px; margin: 0.5rem 0;"></iframe>
+    <iframe src="https://learningapps.org/watch?v=pgfbevg3a26" style="width: 100%; height: 450px; border: none; border-radius: 20px;"></iframe>
+  </div>
+</div>
+
+<script>
+  // ==================== Global Variables ====================
+  let currentUser = null;
+  let isTeacherMode = false;
+  const TEACHER_PASSWORD = "123456";
+  let violationCount = parseInt(localStorage.getItem('moral_violation_count') || '0');
+  let lastSubmitTime = parseInt(localStorage.getItem('moral_last_submit') || '0');
+  const SUBMIT_COOLDOWN = 10000;
+  const CONFIG = {
+    googleScriptUrl: "https://script.google.com/macros/s/AKfycbw55PFmrpGe6chTrZeB1QtGhCwHAKABz3tWr9TOlsbKMQgKSkv6pD1T0NIK4_b3_EGW/exec",
+    sheetApiUrl: "https://opensheet.elk.sh/13cZDJXzzD0OaGJIb0qlnCwmV6hjl_ruJzOhDLkYmZqw/Sheet1"
+  };
+  const GAMES = [
+    { src: 'cyber-guardian.html', note: '🛡️ Pengawal Siber - Halang buli, lindungi dunia siber!' },
+    { src: 'cyber-guardian2.html', note: '🛡️ Pengawal Siber II - Cabaran Kedua' },
+    { src: 'cyber-guardian3.html', note: '🛡️ Pengawal Siber III - Cabaran Ketiga' },
+    { src: 'cyber-guardian4.html', note: '🛡️ Pengawal Siber IIII - Cabaran Terakhir' }
+  ];
+
+  // ==================== Orientation & Content Protection ====================
+  function isTouchDevice() { return 'ontouchstart' in window || navigator.maxTouchPoints > 0; }
+  function checkOrientation() {
+    let o = document.getElementById('rotateOverlay');
+    if (!isTouchDevice()) { o.classList.remove('active'); return; }
+    if (window.innerWidth > window.innerHeight) { o.classList.add('active'); } else { o.classList.remove('active'); }
+  }
+  window.addEventListener('orientationchange', checkOrientation);
+  window.addEventListener('resize', checkOrientation);
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('copy', e => e.preventDefault());
+  document.addEventListener('cut', e => e.preventDefault());
+  document.addEventListener('dragstart', e => e.preventDefault());
+
+  // ==================== Bad Words Filter (Malay/English/Chinese) ====================
+  const BANNED_WORDS = {
+    chinese: ['傻逼', '傻b', 'sb', '白痴', '笨蛋', '蠢货', '去死', '滚蛋', '废物', '垃圾', '混蛋', '王八蛋', '操你', '妈的', '他妈', '尼玛', '脑残', '弱智', '低能', '畜生', '禽兽', '杂种', '贱人', '婊子', '骚货', '下贱', '无耻', '干你', '靠北', '塞你', '丢你', '顶你', '叼你', '屌你', '七早八早'],
+    english: ['fuck', 'fck', 'fuk', 'fcu', 'f*k', 'f**k', 'shit', 'sh1t', 'sh!t', 'sht', 'bitch', 'b1tch', 'b!tch', 'btch', 'asshole', 'ass', 'arse', 'bastard', 'damn', 'dumb', 'stupid', 'idiot', 'moron', 'retard', 'piss', 'crap', 'hell', 'nigger', 'nigga', 'faggot', 'fag', 'slut', 'whore', 'cunt', 'dick', 'pussy', 'cock', 'penis', 'vagina', 'motherfucker', 'mofo', 'wtf', 'stfu'],
+    malay: ['babi', 'bab1', 'b4bi', 'anjing', 'anj1ng', 'sial', 's1al', 'bodoh', 'bod0h', 'bangang', 'bahlol', 'tolol', 'gila', 'g1la', 'pukimak', 'puk1mak', 'puki', 'lancau', 'kote', 'celaka', 'jilat', 'bangsat', 'haram', 'jadah', 'kurang ajar', 'tak guna', 'sampah', 'bencong', 'pondan', 'keparat']
+  };
+  const CHAR_MAP = { '0': 'o', '1': 'i', '2': 'z', '3': 'e', '4': 'a', '5': 's', '6': 'g', '7': 't', '8': 'b', '9': 'g', '@': 'a', '$': 's', '!': 'i', '*': '', '#': '', '(': '', ')': '', '_': '', '-': '', '.': '', ',': ':' };
+  let flatBannedWords = [], bannedPatterns = [];
+
+  function initBannedWords() {
+    flatBannedWords = [];
+    let allWords = [...BANNED_WORDS.chinese, ...BANNED_WORDS.english, ...BANNED_WORDS.malay];
+    allWords.forEach(word => {
+      let norm = normalizeText(word);
+      if (flatBannedWords.indexOf(norm) === -1) flatBannedWords.push(norm);
+    });
+    bannedPatterns = flatBannedWords.map(word => ({ pattern: new RegExp(escapeRegex(word), 'gi'), word: word }));
+  }
+  function normalizeText(text) {
+    if (!text) return '';
+    let normalized = text.toLowerCase().trim();
+    for (let char in CHAR_MAP) normalized = normalized.split(char).join(CHAR_MAP[char]);
+    return normalized.replace(/(.)\1+/g, '$1');
+  }
+  function escapeRegex(str) { return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function containsBannedWord(text) {
+    if (!text) return { found: false, word: '' };
+    let normalizedText = normalizeText(text);
+    for (let i = 0; i < bannedPatterns.length; i++) {
+      if (bannedPatterns[i].pattern.test(normalizedText)) {
+        bannedPatterns[i].pattern.lastIndex = 0;
+        return { found: true, word: bannedPatterns[i].word };
+      }
+    }
+    for (let j = 0; j < flatBannedWords.length; j++) {
+      if (normalizedText.indexOf(flatBannedWords[j]) !== -1) return { found: true, word: flatBannedWords[j] };
+    }
+    return { found: false, word: '' };
+  }
+
+  function addViolation() { violationCount++; localStorage.setItem('moral_violation_count', violationCount); return violationCount; }
+  function resetViolations() { violationCount = 0; localStorage.setItem('moral_violation_count', '0'); }
+  function getViolationWarning() {
+    if (violationCount === 1) return "⚠️ Amaran: Mesej mengandungi bahasa tidak sopan, sila guna bahasa baik!";
+    else if (violationCount >= 2) return "🚨 Amaran Serius: Anda telah menggunakan bahasa tidak sopan berulang kali.\nGuru telah merekod masa dan IP anda. Hentikan segera.";
+    return "⚠️ Mesej mengandungi bahasa tidak sopan, tidak boleh dihantar.";
+  }
+  function canSubmit() {
+    let now = Date.now();
+    if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
+      let ws = Math.ceil((SUBMIT_COOLDOWN - (now - lastSubmitTime)) / 1000);
+      alert(`⏳ Jangan spam, sila tunggu ${ws} saat.`);
+      return false;
+    }
+    return true;
+  }
+  function recordSubmit() { lastSubmitTime = Date.now(); localStorage.setItem('moral_last_submit', lastSubmitTime); }
+
+  // ==================== Page Navigation ====================
+  function goToQuiz() {
+    let grade = document.getElementById('grade').value;
+    let role = document.getElementById('role').value;
+    let name = document.getElementById('userName').value.trim();
+    if (!grade || !role || !name) {
+      document.getElementById('welcomeError').style.display = 'block';
+      return;
+    }
+    currentUser = { grade, role, name, timestamp: new Date().toISOString() };
+    localStorage.setItem('moralEduUserInfo', JSON.stringify(currentUser));
+    document.getElementById('quizUserName').innerHTML = name + ' (' + grade + ' - ' + role + ')';
+    document.getElementById('welcomeScreen').style.display = 'none';
+    document.getElementById('quizScreen').style.display = 'flex';
+  }
+
+  function selectOption(element) {
+    let parent = element.parentElement;
+    parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+    element.classList.add('selected');
+    element.querySelector('input').checked = true;
+  }
+
+  function submitQuiz() {
+    let q1 = document.querySelector('input[name="q1"]:checked');
+    let q2 = document.querySelector('input[name="q2"]:checked');
+    let q3 = document.querySelector('input[name="q3"]:checked');
+    let q4 = document.querySelector('input[name="q4"]:checked');
+    let q5 = document.querySelector('input[name="q5"]:checked');
+    if (!q1 || !q2 || !q3 || !q4 || !q5) {
+      document.getElementById('quizError').textContent = 'Sila jawab semua soalan';
+      document.getElementById('quizError').style.display = 'block';
+      return;
+    }
+    let answers = { q1: 'A', q2: 'B', q3: 'B', q4: 'B', q5: 'A' };
+    let score = 0;
+    if (q1.value === answers.q1) score++;
+    if (q2.value === answers.q2) score++;
+    if (q3.value === answers.q3) score++;
+    if (q4.value === answers.q4) score++;
+    if (q5.value === answers.q5) score++;
+    localStorage.setItem('moralQuizAnswers', JSON.stringify({ score }));
+    document.getElementById('quizError').style.display = 'none';
+    document.getElementById('quizScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    let scoreText = score === 5 ? 'Markah Penuh ' + score + '/5 🏆' : 'Skor ' + score + '/5 💪';
+    document.getElementById('userWelcomeDisplay').innerHTML = `🌸 ${currentUser.name} (${currentUser.grade} - ${currentUser.role}) · ${scoreText}`;
+    loadAllMessages();
+    setInterval(loadAllMessages, 30000);
+  }
+
+  // ==================== Dropdown Kursus (Tahun & Pelajaran) ====================
+  function toggleDropdown() {
+    let m = document.getElementById('dropdownMenu');
+    m.style.display = m.style.display === 'block' ? 'none' : 'block';
+    document.getElementById('gradeList').style.display = 'block';
+    document.getElementById('courseList').style.display = 'none';
+  }
+  function showCourses(grade) {
+    const gradeNames = { '一年级': 'Tahun 1', '二年级': 'Tahun 2', '三年级': 'Tahun 3', '四年级': 'Tahun 4', '五年级': 'Tahun 5', '六年级': 'Tahun 6' };
+    const displayGrade = gradeNames[grade] || grade;
+    const cbg = {
+      '一年级': [{ malay: 'Pegangan Hidup Saya' }, { malay: 'Baik Hati Amalan Saya' }, { malay: 'Tanggungjawab Suresh' }, { malay: 'Terima Kasih, Kawan-kawan' }, { malay: 'Budi Bahasa Amalan Saya' }, { malay: 'Hormati Diri Disanjung Tinggi' }, { malay: 'Sayangi Diri Sendiri' }, { malay: 'Adil Membawa Sejahtera' }, { malay: 'Berani Menghadapi Cabaran' }, { malay: 'Kok Heng Yang Jujur' }, { malay: 'Blog Kerajinan' }, { malay: 'Kerjasama Membawa Berkat' }, { malay: 'Pesanan Nenek' }, { malay: 'Bertolak Ansur Amalan Saya' }],
+      '二年级': [{ malay: 'Ajaran Agama Keluarga Saya' }, { malay: 'Baik Hati Keluarga Bahagia' }, { malay: 'Tanggungjawab Saya Dalam Keluarga' }, { malay: 'Terima Kasih, Keluargaku' }, { malay: 'Hemah Tinggi Dalam Keluarga' }, { malay: 'Hormati Keluarga Hidup Gembira' }, { malay: 'Keluarga Bahagia' }, { malay: 'Keluarga yang Adil Hidup Sejahtera' }, { malay: 'Berani Demi Nama Baik Keluarga' }, { malay: 'Jujur Selalu' }, { malay: 'Sikap Rajin Amalan Keluarga' }, { malay: 'Kerjasama Meringankan Beban Keluarga' }, { malay: 'Bersederhana Amalan Keluarga' }, { malay: 'Toleransi Sesama Ahli Keluarga' }],
+      '三年级': [{ malay: 'Perayaan Warga Sekolah' }, { malay: 'Baik Hati Nilai Mulia' }, { malay: 'Murid Bertanggungjawab' }, { malay: 'Berterima Kasih Amalan Mulia' }, { malay: 'Beradab Sopan Pekerti Terpuji' }, { malay: 'Hormati Semua Amalan Kami' }, { malay: 'Sekolah Kebanggaanku' }, { malay: 'Sikap Adil Sekolah Sejahtera' }, { malay: 'Hadapi Cabaran Demi Sekolah' }, { malay: 'Jujur Amalan Warga Sekolah' }, { malay: 'Rajin Tangga Kejayaan' }, { malay: 'Kerjasama Budaya Kami' }, { malay: 'Amalan Hidup di Sekolah' }, { malay: 'Toleransi Sesama Warga Sekolah' }],
+      '四年级': [{ malay: 'Hayati Amalan Agama dan Kepercayaan Jiran' }, { malay: 'Sikap Prihatin Amalan Mulia' }, { malay: 'Tanggungjawab Hidup Berjiran' }, { malay: 'Hargai Jiran Hubungan Erat' }, { malay: 'Sopan Santun dengan Jiran' }, { malay: 'Semaikan Amalan Menghormati Jiran' }, { malay: 'Sayangi Jiran' }, { malay: 'Bersikap Adil Sesama Jiran' }, { malay: 'Bertindak Berani demi Kesejahteraan Kejiranan' }, { malay: 'Kejujuran Amalan Hidup Bersama-sama Jiran' }, { malay: 'Usaha Berterusan Membawa Kesejahteraan' }, { malay: 'Muafakat Membawa Berkat' }, { malay: 'Kesederhanaan Menjalin Kemesraan Sesama Jiran' }, { malay: 'Bertolak Ansur Amalan Terpuji' }],
+      '五年级': [{ malay: 'Keunikan Masyarakatku' }, { malay: 'Penyeri Jiwa Masyarakat' }, { malay: 'Kehijauan Alam Tanggungjawab Bersama' }, { malay: 'Hargai Jasa dan Sumbangan' }, { malay: 'Pupuk Amalan Berbudi Pekerti Mulia' }, { malay: 'Budaya Masyarakat Patut Dihormati' }, { malay: 'Sajak Kasih Sayang' }, { malay: 'Suri Teladan Dicontohi Masyarakat' }, { malay: 'Berani Pertahankan Cabaran' }, { malay: 'Beradab dengan Jujurnya' }, { malay: 'Berkat Kerajinan' }, { malay: 'Amalan Kerjasama, Kebaikan Bersama' }, { malay: 'Bersederhana Menjamin Kebahagiaan' }, { malay: 'Bertoleransi Membawa Kesejahteraan' }],
+      '六年级': [{ malay: 'Kepercayaan Kepada Tuhan Menjamin Kesejahteraan Negara' }, { malay: 'Bantuan Dan Sokongan Moral Kepada Negara' }, { malay: 'Tanggungjawab Sebagai Warganegara' }, { malay: 'Hargai Keunikan Negara' }, { malay: 'Amalan Hemah Tinggi Meningkatkan Imej Negara' }, { malay: 'Hormati Identiti Negara' }, { malay: 'Cinta Akan Negara' }, { malay: 'Amalan Adil Demi Kesejahteraan Negara' }, { malay: 'Berani Mempertahankan Maruah Negara' }, { malay: 'Kejujuran Demi Kesejahteraan Negara' }]
+    };
+    let courses = cbg[grade] || [];
+    let html = `<div style="padding: 0.4rem 1.2rem; background: #fff2f6;">${displayGrade}</div>`;
+    courses.forEach((c, i) => {
+      html += `<div class="dropdown-item" onclick="selectCourse('${grade}', 'Pelajaran ${i+1}: ${c.malay}')">📚 Pelajaran ${i+1}: ${c.malay}</div>`;
+    });
+    document.getElementById('courseItems').innerHTML = html;
+    document.getElementById('gradeList').style.display = 'none';
+    document.getElementById('courseList').style.display = 'block';
+  }
+  function backToGrades() {
+    document.getElementById('gradeList').style.display = 'block';
+    document.getElementById('courseList').style.display = 'none';
+  }
+  function selectCourse(grade, course) {
+    document.getElementById('dropdownMenu').style.display = 'none';
+    showContactModal(grade, course);
+  }
+  function showContactModal(grade, course) {
+    let overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    let modal = document.createElement('div');
+    modal.style.cssText = 'background:white;max-width:380px;width:90%;padding:1.5rem;border-radius:24px;text-align:center;';
+    modal.innerHTML = `<div style="font-size:2.5rem;">📧</div><h3 style="color:#e8436e;">${grade} - ${course}</h3><p style="color:#b85c7a;">Untuk topik lain, sila emel Cikgu Mao</p><div style="background:#fff2f6;padding:0.8rem;border-radius:12px;"><p style="color:#e8436e;">nexusgt.my@gmail.com</p></div><button id="closeModalBtn" style="background:#ff99bb; border:none; border-radius:40px; padding:0.7rem; width:100%; margin-top:1rem;">Saya Faham</button>`;
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    document.getElementById('closeModalBtn').onclick = () => overlay.remove();
+    overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown')) document.getElementById('dropdownMenu').style.display = 'none';
+  });
+
+  // ==================== Game Switch ====================
+  function switchGame(index) {
+    let game = GAMES[parseInt(index)];
+    document.getElementById('gameWrapper').innerHTML = `<iframe src="${game.src}" style="width:100%;height:450px;border:none;border-radius:24px;"></iframe>`;
+    document.getElementById('gameNote').innerHTML = game.note;
+  }
+
+  // ==================== Teacher Mode ====================
+  function toggleTeacherMode() {
+    if (isTeacherMode) {
+      isTeacherMode = false;
+      updateTeacherUI();
+      alert("Telah keluar mod guru");
+    } else {
+      let pwd = prompt("Sila masukkan kata laluan guru:");
+      if (pwd === TEACHER_PASSWORD) {
+        isTeacherMode = true;
+        resetViolations();
+        updateTeacherUI();
+        alert("Mod guru dibuka! Anda boleh balas sebagai Cikgu Mao.");
+      } else if (pwd !== null) alert("Kata laluan salah!");
+    }
+  }
+  function updateTeacherUI() {
+    let tb = document.getElementById('teacherToggleBtn');
+    let ind = document.getElementById('teacherReplyIndicator');
+    let cb = document.getElementById('counselBtn');
+    if (isTeacherMode) {
+      tb.textContent = '✅ Mod Guru (Klik keluar)';
+      tb.style.background = '#ff7aa6';
+      ind.style.display = 'block';
+      cb.textContent = '👩‍🏫 Balas Guru';
+      cb.style.background = '#ff7aa6';
+    } else {
+      tb.textContent = '🔑 Log Masuk Guru';
+      tb.style.background = '#ffbfd1';
+      ind.style.display = 'none';
+      cb.textContent = '🌙 Hantar Tanpa Nama';
+      cb.style.background = '#ff99bb';
+    }
+  }
+
+  // ==================== Message Board API ====================
+  async function loadAllMessages() {
+    try {
+      let res = await fetch(CONFIG.sheetApiUrl);
+      let data = await res.json();
+      let counselHtml = "", quoteHtml = "";
+      data.reverse().forEach(item => {
+        let content = item['留言'] || '';
+        if (content.startsWith('[质询]') || content.startsWith('[老师回复]')) {
+          counselHtml += `<div class="message-item">${escapeHtml(content)}<br><small>${item['时间戳'] || ''}</small></div>`;
+        } else if (content.startsWith('[名言]')) {
+          quoteHtml += `<div class="message-item">✨ ${escapeHtml(content.replace('[名言]', ''))}</div>`;
+        }
+      });
+      document.getElementById('counselList').innerHTML = counselHtml || "✨ Tiada luahan, tulis masalah anda tanpa nama";
+      document.getElementById('quoteList').innerHTML = quoteHtml || "✨ Tiada kata mutiara, jom kongsi positif!";
+    } catch (e) {
+      console.warn(e);
+      document.getElementById('counselList').innerHTML = '<div class="error-message">Gagal memuat</div>';
+    }
+  }
+  function escapeHtml(str) {
+    let div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+  async function submitCounsel() {
+    let comment = document.getElementById('counselComment').value.trim();
+    if (!comment) { alert('Sila isi kandungan'); return; }
+    if (!canSubmit()) return;
+    let banCheck = containsBannedWord(comment);
+    if (banCheck.found) { addViolation(); alert(getViolationWarning()); document.getElementById('counselComment').focus(); return; }
+    let prefix = isTeacherMode ? '[老师回复]' : '[质询]';
+    let btn = document.getElementById('counselBtn');
+    btn.disabled = true;
+    btn.textContent = 'Menghantar...';
+    await fetch(CONFIG.googleScriptUrl, { method: 'POST', body: new URLSearchParams({ 'comment': prefix + ' ' + comment }) });
+    recordSubmit();
+    document.getElementById('counselComment').value = '';
+    alert(isTeacherMode ? 'Balasan Cikgu Mao dihantar!' : 'Berjaya hantar tanpa nama!');
+    loadAllMessages();
+    btn.disabled = false;
+    btn.textContent = isTeacherMode ? '👩‍🏫 Balas Guru' : '🌙 Hantar Tanpa Nama';
+  }
+  async function submitQuote() {
+    let comment = document.getElementById('quoteComment').value.trim();
+    if (!comment) { alert('Sila isi kandungan'); return; }
+    if (!canSubmit()) return;
+    let banCheck = containsBannedWord(comment);
+    if (banCheck.found) { addViolation(); alert(getViolationWarning()); document.getElementById('quoteComment').focus(); return; }
+    let displayName = currentUser ? currentUser.name + ' (' + currentUser.grade + ' - ' + currentUser.role + ')' : 'Tanpa Nama';
+    let btn = document.getElementById('quoteBtn');
+    btn.disabled = true;
+    btn.textContent = 'Menghantar...';
+    await fetch(CONFIG.googleScriptUrl, { method: 'POST', body: new URLSearchParams({ 'comment': '[名言] 【' + displayName + '】: ' + comment }) });
+    recordSubmit();
+    document.getElementById('quoteComment').value = '';
+    alert('Berjaya dihantar!');
+    loadAllMessages();
+    btn.disabled = false;
+    btn.textContent = '🌟 Hantar Beridentiti';
+  }
+
+  // ==================== Classroom Page ====================
+  function showClassroomPage() {
+    document.getElementById('mainContent').style.display = 'none';
+    document.getElementById('classroomPage').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+  function hideClassroomPage() {
+    document.getElementById('classroomPage').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  }
+  document.getElementById('openClassroomBtn').onclick = showClassroomPage;
+  document.getElementById('closeClassroomBtn').onclick = hideClassroomPage;
+
+  // ==================== Initialization ====================
+  initBannedWords();
+  checkOrientation();
+  let saved = localStorage.getItem('moralEduUserInfo');
+  if (saved) {
+    currentUser = JSON.parse(saved);
+    let savedQuiz = localStorage.getItem('moralQuizAnswers');
+    if (savedQuiz) {
+      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('quizScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      let quiz = JSON.parse(savedQuiz);
+      let scoreText = quiz.score === 5 ? 'Markah Penuh ' + quiz.score + '/5 🏆' : 'Skor ' + quiz.score + '/5';
+      document.getElementById('userWelcomeDisplay').innerHTML = `🌸 ${currentUser.name} (${currentUser.grade} - ${currentUser.role}) · ${scoreText}`;
+      loadAllMessages();
+      setInterval(loadAllMessages, 30000);
+    } else {
+      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('quizScreen').style.display = 'flex';
+      document.getElementById('quizUserName').innerHTML = currentUser.name + ' (' + currentUser.grade + ' - ' + currentUser.role + ')';
+    }
+  }
+</script>
+</body>
+</html>
