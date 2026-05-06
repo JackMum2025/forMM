@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>教学视频 · Moral Fantastic</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Nunito', 'Segoe UI', 'Quicksand', system-ui, sans-serif;
+      background: #ffffff;
+      color: #2d4e1e;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #d4e6ca;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { font-size: 28px; animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);} }
+    .logo-text { font-size: 1.5rem; font-weight: 800; color: #2d4e1e; }
+    .back-home { background: #eef5ea; color: #2d4e1e; text-decoration: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; transition: 0.2s; }
+    .back-home:hover { background: #7fa86a; color: white; transform: translateY(-2px); }
+    .container { max-width: 800px; margin: 0 auto; padding: 24px 16px 40px; }
+    h1 { color: #2d4e1e; margin-bottom: 8px; }
+    .video-card {
+      background: white;
+      border-radius: 32px;
+      border: 1px solid #d4e6ca;
+      padding: 20px;
+      margin-bottom: 24px;
+      transition: 0.2s;
+    }
+    .video-card:hover { box-shadow: 0 8px 20px rgba(80,110,60,0.1); }
+    .video-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .video-wrapper {
+      background: #eef5ea;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+    .video-wrapper iframe { width: 100%; height: 100%; border: none; }
+    .placeholder {
+      background: #eef5ea;
+      border-radius: 24px;
+      padding: 60px 20px;
+      text-align: center;
+      color: #8aa67d;
+      border: 2px dashed #c8dcc0;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      background: #7fa86a;
+      color: white;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-btn:hover { background: #5b8c4e; transform: translateY(-2px); }
+    .nav-btn.outline { background: white; color: #7fa86a; border: 2px solid #7fa86a; }
+    .nav-btn.outline:hover { background: #eef5ea; }
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #9bb88b;
+      font-size: 0.75rem;
+      border-top: 1px solid #e2ecd9;
+      margin-top: 20px;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 16px; }
+      .video-card { padding: 16px; }
+      .nav-btn { padding: 10px 20px; font-size: 0.9rem; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="sticky-header">
+  <div class="logo-area">
+    <div class="logo-icon">🍀</div>
+    <div class="logo-text">Moral Fantastic</div>
+  </div>
+  <a href="zh.html" class="back-home">🏠 回到主页</a>
+</div>
+
+<div class="container">
+  <h1>📺 教学视频</h1>
+  <p style="color: #6b7c63; margin-bottom: 24px;">互动学习 · 应对网络霸凌</p>
+
+  <!-- 视频 1：LearningApps -->
+  <div class="video-card">
+    <div class="video-title"><span>🎬</span> 互动学习：如何应对网络霸凌</div>
+    <div class="video-wrapper">
+      <iframe src="https://learningapps.org/watch?v=pgfbevg3a26" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- 视频 2：预留空位（您后补链接） -->
+  <div class="video-card">
+    <div class="video-title"><span>📹</span> 教学视频 2（待添加）</div>
+    <div class="placeholder" id="video2Placeholder">
+      🎥 视频链接占位<br>
+      <span style="font-size: 0.8rem;">请在此处添加您的教学视频链接</span>
+    </div>
+  </div>
+
+  <!-- 导航按钮 -->
+  <div class="nav-buttons">
+    <a href="ppt.html" class="nav-btn outline">← 上一项：PPT</a>
+    <a href="zh.html" class="nav-btn">🏠 回到主页</a>
+    <a href="game.html" class="nav-btn outline">下一项：互动游戏 →</a>
+  </div>
+</div>
+
+<footer>© 2026 Moral Fantastic · 德育如细雨，润物细无声</footer>
+
+<script>
+  // 视频2占位（您之后可以替换为实际iframe）
+  // 当您需要添加视频时，将下方注释取消并替换链接
+  /*
+  const video2Html = '<iframe src="您的视频链接" allowfullscreen></iframe>';
+  document.getElementById('video2Placeholder').outerHTML = `<div class="video-wrapper">${video2Html}</div>`;
+  */
+  console.log('教学视频页面已加载，视频2链接待添加');
+</script>
+</body>
+</html>
