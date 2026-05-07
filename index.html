@@ -116,23 +116,19 @@
       }
     }
 
-    /* 按钮区域 */
+    /* 按钮区域 - 初始透明，延迟淡入 */
     .buttons-section {
       padding: 48px 20px;
       text-align: center;
       background: #ffffff;
-      animation: fadeInScale 0.5s ease-out;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.6s ease-out;
     }
 
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    .buttons-section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .btn-group {
@@ -579,28 +575,13 @@
 <!-- 主内容容器 -->
 <div class="container">
   
-  <!-- 图片 1 - MP4 视频 -->
+  <!-- 图片 1 - GIF 动画 -->
   <div class="full-image" id="image1">
-    <video 
-      id="heroVideo"
-      autoplay 
-      loop 
-      muted 
-      playsinline 
-      disablePictureInPicture
-      webkit-playsinline="true"
-      x5-playsinline="true"
-      x5-video-player-type="h5-page"
-      x5-video-player-fullscreen="false"
-      oncontextmenu="return false"
-      style="width:100%; height:auto; display:block;">
-      <source src="https://jackmum2025.github.io/forMM/title.gif" type="video/mp4">
-      您的浏览器不支持视频播放。
-    </video>
+    <img id="heroGif" src="https://jackmum2025.github.io/forMM/title.gif" alt="Moral Fantastic Banner" style="width:100%; height:auto; display:block;">
   </div>
 
-  <!-- 按钮区域（图片1之后） -->
-  <div class="buttons-section">
+  <!-- 按钮区域（延迟淡入） -->
+  <div class="buttons-section" id="buttonsSection">
     <div class="btn-group">
       <a href="#" id="freeTrialBtn" class="btn btn-trial">
         🎓 FREE TRIAL CLASS
@@ -615,7 +596,7 @@
 
   <!-- 图片 2 -->
   <div class="full-image" id="image2">
-    <img src="" alt="https://jackmum2025.github.io/forMM/title.gif">
+    <img src="" alt="Moral Fantastic Illustration 2">
   </div>
 
   <!-- 图片 3 -->
@@ -703,57 +684,30 @@
 </div>
 
 <script>
-  // ==================== 强制手机版视频自动播放（解决需要点击的问题） ====================
+  // ==================== 按钮延迟淡入：等待 GIF 加载完成后再显示按钮 ====================
   (function() {
-    const video = document.getElementById('heroVideo');
-    if (!video) return;
+    const gif = document.getElementById('heroGif');
+    const buttonsSection = document.getElementById('buttonsSection');
     
-    // 方法1：页面加载后立即尝试播放
-    const tryAutoPlay = () => {
-      video.play().then(() => {
-        console.log('✅ 视频自动播放成功');
-      }).catch((error) => {
-        console.log('⚠️ 自动播放失败:', error);
-        // 方法2：监听页面任何触摸/点击事件，第一次触发时播放
-        const playOnInteraction = () => {
-          video.play().then(() => {
-            console.log('✅ 用户交互后播放成功');
-          }).catch(() => {});
-          // 移除监听器，只触发一次
-          document.removeEventListener('touchstart', playOnInteraction);
-          document.removeEventListener('click', playOnInteraction);
-        };
-        document.addEventListener('touchstart', playOnInteraction);
-        document.addEventListener('click', playOnInteraction);
-      });
-    };
-    
-    // 确保视频元数据加载完成
-    if (video.readyState >= 2) {
-      tryAutoPlay();
-    } else {
-      video.addEventListener('loadedmetadata', tryAutoPlay);
-    }
-    
-    // 方法3：页面切换回来时重新尝试播放
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && video.paused) {
-        video.play().catch(() => {});
-      }
-    });
-    
-    // 方法4：iOS Safari 特殊处理 - 模拟用户交互
-    // 当页面加载完成后，创建一个"隐形"的按钮点击事件
-    window.addEventListener('load', () => {
-      // 延迟一点再试一次，确保DOM完全加载
+    // 如果 GIF 已经缓存或加载完成，立即显示按钮
+    if (gif.complete && gif.naturalHeight !== 0) {
       setTimeout(() => {
-        if (video.paused) {
-          // 创建一个不可见的交互模拟（某些浏览器支持）
-          const event = new Event('touchstart', { bubbles: true });
-          document.body.dispatchEvent(event);
+        buttonsSection.classList.add('visible');
+      }, 300); // 稍微延迟 0.3 秒，让过渡更自然
+    } else {
+      // 等待 GIF 加载完成
+      gif.addEventListener('load', function() {
+        setTimeout(() => {
+          buttonsSection.classList.add('visible');
+        }, 300);
+      });
+      // 保险：如果加载超过 2 秒也显示按钮（避免网络问题导致永远不显示）
+      setTimeout(() => {
+        if (!buttonsSection.classList.contains('visible')) {
+          buttonsSection.classList.add('visible');
         }
-      }, 100);
-    });
+      }, 2500);
+    }
   })();
 
   // ==================== 课程数据（用于弹窗显示） ====================
@@ -806,7 +760,7 @@
   window.addEventListener('resize',checkOrientation);
   checkOrientation();
 
-  // ==================== 图片链接 ====================
+  // ==================== 图片链接（图2-6） ====================
   const imageUrls = [
     "https://via.placeholder.com/800x450/c8dcc0/2d4e1e?text=Image+2",
     "https://via.placeholder.com/800x450/e8f0e3/2d4e1e?text=Image+3",
