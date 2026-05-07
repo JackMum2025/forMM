@@ -18,7 +18,6 @@
     ::-webkit-scrollbar-track { background: #eef5ea; border-radius: 10px; }
     ::-webkit-scrollbar-thumb { background: #7fa86a; border-radius: 10px; }
 
-    /* 置顶导航栏 */
     .sticky-header {
       position: sticky;
       top: 0;
@@ -49,7 +48,6 @@
     }
     .lang-badge:hover { background: #d4e6ca; transform: translateY(-2px); }
 
-    /* 屏幕容器 */
     .screen {
       position: fixed;
       top: 0;
@@ -124,7 +122,6 @@
     .error-message { color: #c44; font-size: 0.8rem; display: none; margin-top: 8px; }
     .privacy-note { font-size: 0.7rem; color: #9bb88b; text-align: center; margin-top: 16px; }
 
-    /* 主页面 */
     #mainContent { display: none; }
     header {
       background: linear-gradient(135deg, #eef5ea, #e4eddf);
@@ -191,7 +188,6 @@
 
     main { max-width: 700px; margin: 0 auto; padding: 20px 16px; }
 
-    /* Slogan 图片淡入动画 */
     .slogan-img {
       text-align: center;
       margin-bottom: 20px;
@@ -204,7 +200,6 @@
     .slogan-img img { width: 100%; max-width: 600px; border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; }
     .slogan-img img:hover { transform: scale(1.02); box-shadow: 0 12px 32px rgba(127,168,106,0.2); }
 
-    /* 板卡片 */
     .board-card {
       background: white;
       border-radius: 28px;
@@ -287,7 +282,6 @@
       font-size: 0.75rem;
     }
 
-    /* 5个圆形按钮 - 美化版（文字不超出） */
     .circle-buttons {
       display: flex;
       justify-content: center;
@@ -350,7 +344,6 @@
       .circle-btn span:last-child { font-size: 0.55rem; }
     }
 
-    /* 进入今日课堂按钮 - 变大 */
     .enter-classroom-btn {
       background: linear-gradient(135deg, #7fa86a, #6b9a56);
       color: white;
@@ -369,7 +362,6 @@
       box-shadow: 0 8px 20px rgba(91,140,78,0.4);
     }
 
-    /* ==================== 自定义弹窗样式 ==================== */
     .custom-modal-overlay {
       position: fixed;
       top: 0;
@@ -450,7 +442,6 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
-    /* 横屏提示 */
     #rotateOverlay {
       display: none;
       position: fixed;
@@ -478,13 +469,12 @@
 
 <div id="rotateOverlay"><div class="rotate-icon">📱</div><p>Sila putar telefon ke mod potret<br><span style="font-size:1rem;color:#94a3b8;">请将手机转回竖屏模式</span></p></div>
 
-<!-- 置顶导航栏 -->
 <div class="sticky-header">
   <div class="logo-area"><div class="logo-icon">🍀</div><div class="logo-text">Moral Fantastic</div></div>
   <div class="lang-badge" id="langSwitchBtn">🌙 Bahasa Melayu</div>
 </div>
 
-<!-- ==================== Halaman Maklumat Peribadi ==================== -->
+<!-- Halaman Maklumat Peribadi -->
 <div id="welcomeScreen" class="screen">
   <div class="card">
     <div class="card-icon">🌱</div>
@@ -501,7 +491,7 @@
   </div>
 </div>
 
-<!-- ==================== Halaman Utama ==================== -->
+<!-- Halaman Utama -->
 <div id="mainContent">
   <header>
     <h1>🍀 Moral Fantastic<span class="user-welcome" id="userWelcomeDisplay"></span></h1>
@@ -528,10 +518,8 @@
     </div>
   </header>
   <main>
-    <!-- Slogan gambar dengan animasi fade in -->
     <div class="slogan-img"><img src="https://i.ibb.co/VWxhBjJQ/Cute-Slogan.jpg" alt="Slogan"></div>
 
-    <!-- 5 butang bulat - 美文字不超出 -->
     <div class="circle-buttons">
       <a href="pptms.html" class="circle-btn"><span>①</span><span>PPT</span></a>
       <a href="videoms.html" class="circle-btn"><span>②</span><span>Video</span></a>
@@ -663,7 +651,6 @@ function showCustomPrompt(message, icon = '🔐', inputPlaceholder = '', maxLeng
   });
 }
 
-// 可复制 Email 弹窗
 async function showCourseModal(grade, course) {
   return new Promise((resolve) => {
     const overlay = document.createElement('div');
@@ -693,7 +680,7 @@ function copyToClipboard(text) {
   showCustomAlert('📧 Email telah disalin! ✨', '✅');
 }
 
-// ==================== Course Data for Dropdown (Tahun 1-6) ====================
+// ==================== Course Data for Dropdown ====================
 const courseData = {
   'Tahun 1': ['Pegangan Hidup Saya','Baik Hati Amalan Saya','Tanggungjawab Suresh','Terima Kasih, Kawan-kawan','Budi Bahasa Amalan Saya','Hormati Diri Disanjung Tinggi','Sayangi Diri Sendiri','Adil Membawa Sejahtera','Berani Menghadapi Cabaran','Kok Heng Yang Jujur','Blog Kerajinan','Kerjasama Membawa Berkat','Pesanan Nenek','Bertolak Ansur Amalan Saya'],
   'Tahun 2': ['Ajaran Agama Keluarga Saya','Baik Hati Keluarga Bahagia','Tanggungjawab Saya Dalam Keluarga','Terima Kasih, Keluargaku','Hemah Tinggi Dalam Keluarga','Hormati Keluarga Hidup Gembira','Keluarga Bahagia','Keluarga yang Adil Hidup Sejahtera','Berani Demi Nama Baik Keluarga','Jujur Selalu','Sikap Rajin Amalan Keluarga','Kerjasama Meringankan Beban Keluarga','Bersederhana Amalan Keluarga','Toleransi Sesama Ahli Keluarga'],
@@ -729,7 +716,7 @@ document.addEventListener('keydown',function(e){
   if(e.ctrlKey&&e.shiftKey&&e.key==='C'){e.preventDefault();return false;}
 });
 
-// ========== Submit Personal Info & Enter Main Page ==========
+// ========== Submit Personal Info ==========
 async function goToMain(){
   var grade=document.getElementById('grade').value;
   var role=document.getElementById('role').value;
@@ -883,8 +870,27 @@ async function loadAllMessages(){
         var cleanMsg=content.replace('[老师回复]','').replace('[质询]','').trim();
         counselHtml += '<div class="message-item" style="'+(isTR?'background:#eef5ea;border-left:4px solid #7fa86a;':'')+'"><div class="message-header"><span class="message-author" style="'+(isTR?'color:#2d4e1e;font-weight:600;':'')+'">'+(isTR?'👩‍🏫 Balasan Cikgu Mow ✨':'🕶️ Tanpa Nama ✦')+'</span><span class="message-time">'+(item['时间戳']||'')+'</span></div><div class="message-content">'+escapeHtml(cleanMsg)+'</div></div>';
       } else if(content.startsWith('[名言]')){
+        // 修复名言墙显示：直接显示名字（年级-身份）：留言，不添加额外的"Ahli Moral"前缀
         var quoteMsg = content.replace('[名言]','').trim();
-        quoteHtml += '<div class="message-item"><div class="message-header"><span class="message-author">🌟 '+(quoteMsg.includes('【') ? quoteMsg.split('】')[0].replace('【','') : 'Ahli Moral')+' ✨</span></div><div class="message-content">'+escapeHtml(quoteMsg.replace(/【.*?】/g, ''))+'</div></div>';
+        // 提取名字部分（格式：【名字】: 留言 或 ✦ 名字 ✦: 留言）
+        var namePart = '';
+        var messagePart = quoteMsg;
+        var nameMatch = quoteMsg.match(/【(.*?)】/);
+        if(nameMatch) {
+          namePart = nameMatch[1];
+          messagePart = quoteMsg.replace(/【.*?】/, '').replace(/^[:：]\s*/, '');
+        } else {
+          var starMatch = quoteMsg.match(/✦(.*?)✦/);
+          if(starMatch) {
+            namePart = starMatch[1];
+            messagePart = quoteMsg.replace(/✦.*?✦/, '').replace(/^[:：]\s*/, '');
+          }
+        }
+        if(namePart) {
+          quoteHtml += '<div class="message-item"><div class="message-header"><span class="message-author" style="color:#5b8c4e;">' + escapeHtml(namePart) + '</span></div><div class="message-content">' + escapeHtml(messagePart) + '</div></div>';
+        } else {
+          quoteHtml += '<div class="message-item"><div class="message-content">✨ ' + escapeHtml(quoteMsg) + '</div></div>';
+        }
       }
     });
     document.getElementById('counselList').innerHTML = counselHtml || '<div class="empty-message">✨ Tiada luahan, tulis masalah anda tanpa nama ✨</div>';
@@ -938,7 +944,7 @@ async function submitQuote(){
   btn.disabled=false;btn.innerHTML='🌟 Hantar Beridentiti';
 }
 
-// ========== Bind "Enter Classroom" button to pptms.html ==========
+// ========== Bind "Enter Classroom" button ==========
 document.addEventListener('DOMContentLoaded',function(){
   initBannedWords();
   checkOrientation();
