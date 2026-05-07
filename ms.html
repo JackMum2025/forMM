@@ -36,7 +36,7 @@
     .logo-area { display: flex; align-items: center; gap: 12px; }
     .logo-icon { font-size: 28px; animation: bounce 2s ease-in-out infinite; }
     @keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);} }
-    .logo-text { font-size: 1.5rem; font-weight: 800; color: #2d4e1e; }
+    .logo-text { font-size: 1.5rem; font-weight: 800; color: #2d4e1e; letter-spacing: -0.5px; }
     .lang-badge { 
       background: #eef5ea; 
       border-radius: 40px; 
@@ -97,7 +97,7 @@
     }
     select:focus, input:focus { outline: none; border-color: #7fa86a; box-shadow: 0 0 0 3px rgba(127,168,106,0.2); }
     .btn {
-      background: #7fa86a;
+      background: linear-gradient(135deg, #7fa86a, #6b9a56);
       color: white;
       border: none;
       padding: 14px 24px;
@@ -106,11 +106,11 @@
       cursor: pointer;
       font-weight: 700;
       width: 100%;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
     }
-    .btn:hover { background: #5b8c4e; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(91,140,78,0.3); }
+    .btn:hover { background: linear-gradient(135deg, #5b8c4e, #4a7a3d); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(91,140,78,0.3); }
     .btn-sm {
-      background: #7fa86a;
+      background: linear-gradient(135deg, #7fa86a, #6b9a56);
       color: white;
       border: none;
       padding: 10px 20px;
@@ -118,16 +118,16 @@
       border-radius: 60px;
       cursor: pointer;
       font-weight: 600;
-      transition: 0.2s;
+      transition: all 0.3s ease;
     }
-    .btn-sm:hover { background: #5b8c4e; transform: translateY(-2px); }
+    .btn-sm:hover { background: linear-gradient(135deg, #5b8c4e, #4a7a3d); transform: translateY(-2px); }
     .error-message { color: #c44; font-size: 0.8rem; display: none; margin-top: 8px; }
     .privacy-note { font-size: 0.7rem; color: #9bb88b; text-align: center; margin-top: 16px; }
 
     /* 主页面 */
     #mainContent { display: none; }
     header {
-      background-color: #eef5ea;
+      background: linear-gradient(135deg, #eef5ea, #e4eddf);
       padding: 12px 20px;
       border-bottom: 3px solid #d4e6ca;
     }
@@ -159,14 +159,14 @@
       font-weight: 600;
       transition: 0.2s;
     }
-    .dropdown-btn:hover { background: #eef5ea; transform: translateY(-2px); }
+    .dropdown-btn:hover { background: #eef5ea; transform: translateY(-2px); border-color: #7fa86a; }
     .dropdown-content {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
       background: white;
-      min-width: 220px;
+      min-width: 240px;
       box-shadow: 0 12px 28px rgba(0,0,0,0.12);
       border-radius: 24px;
       border: 1px solid #d4e6ca;
@@ -177,15 +177,16 @@
     }
     .dropdown-content.show { display: block; animation: fadeInScale 0.2s ease; }
     @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-    .dropdown-item { padding: 12px 18px; cursor: pointer; border-bottom: 1px solid #e2ecd9; transition: 0.1s; }
-    .dropdown-item:hover { background: #eef5ea; transform: translateX(4px); }
+    .dropdown-item { padding: 12px 18px; cursor: pointer; border-bottom: 1px solid #e2ecd9; transition: 0.2s; }
+    .dropdown-item:hover { background: #eef5ea; transform: translateX(5px); color: #7fa86a; }
     .back-btn { background: #eef5ea; font-weight: 600; }
     .today-topic { 
-      background: #d4e6ca; 
+      background: linear-gradient(135deg, #d4e6ca, #caddc1);
       padding: 6px 16px; 
       border-radius: 40px; 
       font-size: 0.85rem; 
       font-weight: 600; 
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
     main { max-width: 700px; margin: 0 auto; padding: 20px 16px; }
@@ -200,8 +201,8 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .slogan-img img { width: 100%; max-width: 600px; border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); transition: transform 0.3s; }
-    .slogan-img img:hover { transform: scale(1.02); }
+    .slogan-img img { width: 100%; max-width: 600px; border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; }
+    .slogan-img img:hover { transform: scale(1.02); box-shadow: 0 12px 32px rgba(127,168,106,0.2); }
 
     /* 板卡片 */
     .board-card {
@@ -213,7 +214,7 @@
       transition: all 0.3s ease;
       animation: fadeInUp 0.6s ease-out;
     }
-    .board-card:hover { box-shadow: 0 8px 24px rgba(127,168,106,0.12); transform: translateY(-2px); }
+    .board-card:hover { box-shadow: 0 12px 28px rgba(127,168,106,0.15); transform: translateY(-3px); border-color: #7fa86a; }
     .board-header {
       display: flex;
       justify-content: space-between;
@@ -224,11 +225,11 @@
       border-bottom: 2px solid #e2ecd9;
     }
     .board-header h2 { color: #2d4e1e; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; margin: 0; }
-    .board-badge { padding: 4px 12px; border-radius: 40px; font-size: 0.7rem; font-weight: 600; }
+    .board-badge { padding: 4px 12px; border-radius: 40px; font-size: 0.7rem; font-weight: 600; background: #eef5ea; }
     .badge-anonymous { background: #eef5ea; color: #4a6e3a; }
     .badge-signed { background: #d4e6ca; color: #2d4e1e; }
     .board-tip {
-      background: #eef5ea;
+      background: linear-gradient(135deg, #eef5ea, #f4faf0);
       border-radius: 20px;
       padding: 10px 14px;
       margin-bottom: 16px;
@@ -266,7 +267,7 @@
       border: 1px solid #e2ecd9;
       transition: 0.2s;
     }
-    .message-item:hover { border-color: #7fa86a; transform: translateX(3px); }
+    .message-item:hover { border-color: #7fa86a; transform: translateX(4px); background: #ffffff; }
     .message-header {
       display: flex;
       justify-content: space-between;
@@ -277,7 +278,7 @@
     .message-time { color: #9bb88b; }
     .message-content { color: #2e3b2c; font-size: 0.9rem; word-break: break-word; }
     footer {
-      background: #eef5ea;
+      background: linear-gradient(135deg, #eef5ea, #e4eddf);
       padding: 16px;
       text-align: center;
       color: #4a6e3a;
@@ -286,43 +287,66 @@
       font-size: 0.75rem;
     }
 
-    /* 5个圆形按钮 */
+    /* 5个圆形按钮 - 美化版 */
     .circle-buttons {
       display: flex;
-      justify-content: space-around;
-      gap: 12px;
+      justify-content: center;
+      gap: 16px;
       margin: 24px 0 32px;
       flex-wrap: wrap;
     }
     .circle-btn {
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      background: #7fa86a;
+      background: linear-gradient(145deg, #7fa86a, #6b9a56);
       color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      transition: 0.25s;
-      box-shadow: 0 6px 14px rgba(127,168,106,0.3);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 8px 20px rgba(127,168,106,0.35);
+      position: relative;
+      overflow: hidden;
     }
+    .circle-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: 0.5s;
+    }
+    .circle-btn:hover::before { left: 100%; }
     .circle-btn:hover {
-      transform: translateY(-5px) scale(1.05);
-      background: #5b8c4e;
-      box-shadow: 0 12px 24px rgba(91,140,78,0.4);
+      transform: translateY(-8px) scale(1.05);
+      background: linear-gradient(145deg, #5b8c4e, #4a7a3d);
+      box-shadow: 0 16px 32px rgba(91,140,78,0.45);
     }
-    .circle-btn span:first-child { font-size: 1.6rem; font-weight: 800; }
-    .circle-btn span:last-child { font-size: 0.65rem; margin-top: 2px; }
+    .circle-btn span:first-child { 
+      font-size: 1.8rem; 
+      font-weight: 800;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .circle-btn span:last-child { 
+      font-size: 0.7rem; 
+      margin-top: 4px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
     @media (max-width: 600px) {
-      .circle-btn { width: 55px; height: 55px; }
-      .circle-btn span:first-child { font-size: 1.3rem; }
+      .circle-btn { width: 65px; height: 65px; }
+      .circle-btn span:first-child { font-size: 1.5rem; }
+      .circle-btn span:last-child { font-size: 0.6rem; }
     }
 
     /* 进入今日课堂按钮 - 变大 */
     .enter-classroom-btn {
-      background: #7fa86a;
+      background: linear-gradient(135deg, #7fa86a, #6b9a56);
       color: white;
       border: none;
       padding: 10px 24px;
@@ -330,12 +354,13 @@
       font-weight: 600;
       border-radius: 40px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(127,168,106,0.3);
     }
     .enter-classroom-btn:hover {
-      background: #5b8c4e;
+      background: linear-gradient(135deg, #5b8c4e, #4a7a3d);
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(91,140,78,0.3);
+      box-shadow: 0 8px 20px rgba(91,140,78,0.4);
     }
 
     /* ==================== 自定义弹窗样式 ==================== */
@@ -356,7 +381,7 @@
     .custom-modal {
       background: white;
       border-radius: 48px;
-      max-width: 360px;
+      max-width: 380px;
       width: 90%;
       padding: 28px 24px;
       text-align: center;
@@ -379,10 +404,10 @@
       margin-bottom: 16px;
     }
     .custom-modal input:focus { outline: none; border-color: #7fa86a; box-shadow: 0 0 0 3px rgba(127,168,106,0.2); }
-    .modal-buttons { display: flex; gap: 12px; justify-content: center; }
+    .modal-buttons { display: flex; gap: 12px; justify-content: center; margin-top: 8px; }
     .modal-btn {
       flex: 1;
-      padding: 10px 16px;
+      padding: 12px 16px;
       border: none;
       border-radius: 60px;
       font-weight: 600;
@@ -393,8 +418,24 @@
     .modal-confirm:hover { background: #5b8c4e; transform: translateY(-2px); }
     .modal-cancel { background: #f0f0f0; color: #666; }
     .modal-cancel:hover { background: #e0e0e0; transform: translateY(-2px); }
-    .modal-ok { background: #7fa86a; color: white; padding: 12px 24px; }
+    .modal-ok { background: #7fa86a; color: white; padding: 12px 24px; width: 100%; }
     .modal-ok:hover { background: #5b8c4e; transform: translateY(-2px); }
+    .copy-email {
+      background: #eef5ea;
+      padding: 12px;
+      border-radius: 60px;
+      margin: 12px 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 600;
+      color: #2d4e1e;
+    }
+    .copy-email:hover { background: #d4e6ca; transform: scale(1.02); }
+    .copy-email span { font-size: 1.1rem; }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes bounceIn {
@@ -434,7 +475,7 @@
 <!-- 置顶导航栏 -->
 <div class="sticky-header">
   <div class="logo-area"><div class="logo-icon">🍀</div><div class="logo-text">Moral Fantastic</div></div>
-  <div class="lang-badge" id="langSwitchBtn">Bahasa Melayu</div>
+  <div class="lang-badge" id="langSwitchBtn">🌙 Bahasa Melayu</div>
 </div>
 
 <!-- ==================== Halaman Maklumat Peribadi ==================== -->
@@ -442,15 +483,15 @@
   <div class="card">
     <div class="card-icon">🌱</div>
     <h1>Menyuburkan Moral Muda</h1>
-    <div class="subtitle">Sila beritahu kami siapa anda</div>
+    <div class="subtitle">✧ Sila beritahu kami siapa anda ✧</div>
     <form onsubmit="return false;">
       <div class="form-group"><label>📚 Tahun</label><select id="grade" required><option value="">-- Sila pilih --</option><option value="Tahun 1">Tahun 1</option><option value="Tahun 2">Tahun 2</option><option value="Tahun 3">Tahun 3</option><option value="Tahun 4">Tahun 4</option><option value="Tahun 5">Tahun 5</option><option value="Tahun 6">Tahun 6</option><option value="Pelajar IPG">Pelajar IPG</option></select></div>
       <div class="form-group"><label>👤 Peranan</label><select id="role" required><option value="">-- Sila pilih --</option><option value="Pelajar">Pelajar</option><option value="Guru">Guru</option></select></div>
       <div class="form-group"><label>✏️ Nama / Gelaran</label><input type="text" id="userName" placeholder="Cth: Ali" maxlength="20" required></div>
-      <div class="error-message" id="welcomeError">Sila isi maklumat lengkap</div>
+      <div class="error-message" id="welcomeError">⚠️ Sila isi maklumat lengkap</div>
       <button type="button" class="btn" onclick="goToMain()">✨ Masuk Taman Moral →</button>
     </form>
-    <div class="privacy-note">Maklumat anda hanya untuk interaksi kelas ini</div>
+    <div class="privacy-note">🔒 Maklumat anda hanya untuk interaksi kelas ini</div>
   </div>
 </div>
 
@@ -484,13 +525,13 @@
     <!-- Slogan gambar dengan animasi fade in -->
     <div class="slogan-img"><img src="https://i.ibb.co/VWxhBjJQ/Cute-Slogan.jpg" alt="Slogan"></div>
 
-    <!-- 5 butang bulat -->
+    <!-- 5 butang bulat - 美化版 -->
     <div class="circle-buttons">
       <a href="ppt.html" class="circle-btn"><span>①</span><span>Pembentangan</span></a>
       <a href="video.html" class="circle-btn"><span>②</span><span>Video</span></a>
       <a href="game.html" class="circle-btn"><span>③</span><span>Permainan</span></a>
-      <a href="classroom.html" class="circle-btn"><span>④</span><span>Kehidupan Sebenar</span></a>
-      <a href="quiz.html" class="circle-btn"><span>⑤</span><span>Ujian Kefahaman</span></a>
+      <a href="classroom.html" class="circle-btn"><span>④</span><span>Dunia Sebenar</span></a>
+      <a href="quiz.html" class="circle-btn"><span>⑤</span><span>Kuiz</span></a>
     </div>
 
     <!-- Dinding Luahan Tanpa Nama -->
@@ -504,7 +545,7 @@
       </div>
       <div class="board-tip">💬 Ada masalah atau soalan? Luah di sini tanpa nama. Guru akan lihat dan balas.</div>
       <div class="message-form">
-        <textarea id="counselComment" placeholder="Tulis masalah atau soalan anda..."></textarea>
+        <textarea id="counselComment" placeholder="✏️ Tulis masalah atau soalan anda..."></textarea>
         <div style="display:flex; gap:10px; margin-top:12px;">
           <button type="button" class="btn-sm" id="counselBtn" onclick="submitCounsel()" style="flex:2;">🌙 Hantar Tanpa Nama</button>
           <button type="button" class="btn-sm" id="teacherReplyIndicator" style="flex:1; background:#d4e6ca; color:#2d4e1e; display:none;" disabled>👩‍🏫 Mod Guru</button>
@@ -521,7 +562,7 @@
       </div>
       <div class="board-tip">✨ Kongsi kata mutiara atau semangat, sebarkan positif.</div>
       <div class="message-form">
-        <textarea id="quoteComment" placeholder="Tulis kata mutiara atau semangat..."></textarea>
+        <textarea id="quoteComment" placeholder="✏️ Tulis kata mutiara atau semangat..."></textarea>
         <button type="button" class="btn-sm" id="quoteBtn" onclick="submitQuote()" style="margin-top:12px;">🌟 Hantar Beridentiti</button>
       </div>
       <div class="message-list" id="quoteList"><div class="empty-message">✨ Sedang memuat...</div></div>
@@ -552,9 +593,9 @@ function showCustomAlert(message, icon = '🌿') {
     overlay.innerHTML = `
       <div class="custom-modal">
         <div class="modal-icon">${icon}</div>
-        <h3>Makluman</h3>
+        <h3>🌼 Makluman</h3>
         <p>${message}</p>
-        <button class="modal-btn modal-ok" style="width:100%;">OK</button>
+        <button class="modal-btn modal-ok" style="width:100%;">✨ OK ✨</button>
       </div>
     `;
     document.body.appendChild(overlay);
@@ -573,11 +614,11 @@ function showCustomConfirm(message, icon = '❓') {
     overlay.innerHTML = `
       <div class="custom-modal">
         <div class="modal-icon">${icon}</div>
-        <h3>Pengesahan</h3>
+        <h3>🌸 Pengesahan</h3>
         <p>${message}</p>
         <div class="modal-buttons">
-          <button class="modal-btn modal-confirm" id="confirmYes">Ya</button>
-          <button class="modal-btn modal-cancel" id="confirmNo">Tidak</button>
+          <button class="modal-btn modal-confirm" id="confirmYes">✅ Ya</button>
+          <button class="modal-btn modal-cancel" id="confirmNo">❌ Tidak</button>
         </div>
       </div>
     `;
@@ -598,8 +639,8 @@ function showCustomPrompt(message, icon = '🔐', inputPlaceholder = '', maxLeng
         <h3>${message}</h3>
         <input type="password" id="customPromptInput" placeholder="${inputPlaceholder}" maxlength="${maxLength}" autocomplete="off">
         <div class="modal-buttons">
-          <button class="modal-btn modal-confirm" id="promptConfirm">OK</button>
-          <button class="modal-btn modal-cancel" id="promptCancel">Batal</button>
+          <button class="modal-btn modal-confirm" id="promptConfirm">🔓 Sahkan</button>
+          <button class="modal-btn modal-cancel" id="promptCancel">🚪 Batal</button>
         </div>
       </div>
     `;
@@ -614,6 +655,36 @@ function showCustomPrompt(message, icon = '🔐', inputPlaceholder = '', maxLeng
     overlay.querySelector('#promptCancel').onclick = () => { overlay.remove(); resolve(null); };
     overlay.onclick = (e) => { if (e.target === overlay) { overlay.remove(); resolve(null); } };
   });
+}
+
+// 可复制 Email 弹窗
+async function showCourseModal(grade, course) {
+  return new Promise((resolve) => {
+    const overlay = document.createElement('div');
+    overlay.className = 'custom-modal-overlay';
+    overlay.innerHTML = `
+      <div class="custom-modal" style="max-width:400px;">
+        <div class="modal-icon">📚</div>
+        <h3>${grade}</h3>
+        <p style="margin-bottom:16px;"><strong>${course}</strong></p>
+        <div style="background:#eef5ea; border-radius:20px; padding:12px; margin:8px 0;">
+          <p style="color:#4a6e3a; margin-bottom:4px;">📧 Untuk topik lain, sila emel:</p>
+          <div class="copy-email" onclick="copyToClipboard('nexusgt.my@gmail.com')">
+            <span>📋</span> nexusgt.my@gmail.com <span>📧</span>
+          </div>
+        </div>
+        <button class="modal-btn modal-ok" style="width:100%; margin-top:12px;">✨ Saya Faham ✨</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    overlay.querySelector('.modal-ok').onclick = () => { overlay.remove(); resolve(); };
+    overlay.onclick = (e) => { if (e.target === overlay) { overlay.remove(); resolve(); } };
+  });
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text);
+  showCustomAlert('📧 Email telah disalin! ✨', '✅');
 }
 
 // ==================== Course Data for Dropdown (Tahun 1-6) ====================
@@ -730,14 +801,14 @@ async function toggleTeacherMode(){
   if(isTeacherMode){
     isTeacherMode=false;
     updateTeacherUI();
-    await showCustomAlert('Telah keluar mod guru', '👋');
+    await showCustomAlert('✨ Telah keluar mod guru ✨', '👋');
   } else {
-    const password = await showCustomPrompt('Sila masukkan kata laluan guru:', '🔑', 'Kata laluan', 20);
+    const password = await showCustomPrompt('🔐 Sila masukkan kata laluan guru:', '🔑', 'Kata laluan', 20);
     if(password === TEACHER_PASSWORD){
       isTeacherMode=true;
       resetViolations();
       updateTeacherUI();
-      await showCustomAlert('✅ Mod guru dibuka! Anda boleh balas sebagai Cikgu Mao.', '🎓');
+      await showCustomAlert('✅ Mod guru dibuka! Anda boleh balas sebagai Cikgu Mow.', '🎓');
     } else if(password !== null && password !== ''){
       await showCustomAlert('❌ Kata laluan salah!', '🔒');
     }
@@ -752,7 +823,7 @@ function updateTeacherUI(){
     toggleBtn.style.background='#5b8c4e';
     toggleBtn.style.color='white';
     indicator.style.display='block';
-    counselBtn.innerHTML='👩‍🏫 Balas Guru';
+    counselBtn.innerHTML='👩‍🏫 Balas Cikgu Mow';
     counselBtn.style.background='#5b8c4e';
   }else{
     toggleBtn.innerHTML='🔑 Log Masuk Guru';
@@ -773,9 +844,9 @@ function toggleDropdown(){
 }
 function showCourses(grade){
   var courses = courseData[grade] || [];
-  var html = '<div style="padding:8px 16px; background:#eef5ea;">'+grade+'</div>';
+  var html = '<div style="padding:8px 16px; background:#eef5ea; border-radius:20px 20px 0 0;">📚 '+grade+'</div>';
   courses.forEach(function(c,i){
-    html += '<div class="dropdown-item" onclick="selectCourse(\''+grade+'\', \'Pelajaran '+(i+1)+': '+c+'\')">📚 Pelajaran '+(i+1)+': '+c+'</div>';
+    html += '<div class="dropdown-item" onclick="selectCourse(\''+grade+'\', \'Pelajaran '+(i+1)+': '+c+'\')">📖 Pelajaran '+(i+1)+': '+c+'</div>';
   });
   document.getElementById('courseItems').innerHTML = html;
   document.getElementById('gradeList').style.display = 'none';
@@ -787,7 +858,7 @@ function backToGrades(){
 }
 async function selectCourse(grade, course){
   document.getElementById('dropdownMenu').classList.remove('show');
-  await showCustomAlert(`Kursus: ${grade} · ${course}\n\nUntuk topik lain, sila emel Cikgu Mao 📧 nexusgt.my@gmail.com`, '📚');
+  await showCourseModal(grade, course);
 }
 document.addEventListener('click', function(e){
   if(!e.target.closest('.dropdown')) document.getElementById('dropdownMenu').classList.remove('show');
@@ -804,7 +875,7 @@ async function loadAllMessages(){
       if(content.startsWith('[质询]')||content.startsWith('[老师回复]')){
         var isTR=content.startsWith('[老师回复]');
         var cleanMsg=content.replace('[老师回复]','').replace('[质询]','').trim();
-        counselHtml += '<div class="message-item" style="'+(isTR?'background:#eef5ea;border-left:4px solid #7fa86a;':'')+'"><div class="message-header"><span class="message-author" style="'+(isTR?'color:#2d4e1e;font-weight:600;':'')+'">'+(isTR?'👩‍🏫 Balasan Cikgu Mao ✨':'🕶️ Tanpa Nama ✦')+'</span><span class="message-time">'+(item['时间戳']||'')+'</span></div><div class="message-content">'+escapeHtml(cleanMsg)+'</div></div>';
+        counselHtml += '<div class="message-item" style="'+(isTR?'background:#eef5ea;border-left:4px solid #7fa86a;':'')+'"><div class="message-header"><span class="message-author" style="'+(isTR?'color:#2d4e1e;font-weight:600;':'')+'">'+(isTR?'👩‍🏫 Balasan Cikgu Mow ✨':'🕶️ Tanpa Nama ✦')+'</span><span class="message-time">'+(item['时间戳']||'')+'</span></div><div class="message-content">'+escapeHtml(cleanMsg)+'</div></div>';
       } else if(content.startsWith('[名言]')){
         var quoteMsg = content.replace('[名言]','').trim();
         quoteHtml += '<div class="message-item"><div class="message-header"><span class="message-author">🌟 '+(quoteMsg.includes('【') ? quoteMsg.split('】')[0].replace('【','') : 'Ahli Moral')+' ✨</span></div><div class="message-content">'+escapeHtml(quoteMsg.replace(/【.*?】/g, ''))+'</div></div>';
@@ -820,7 +891,7 @@ async function loadAllMessages(){
 function escapeHtml(str){var div=document.createElement('div');div.textContent=str;return div.innerHTML;}
 async function submitCounsel(){
   var comment=document.getElementById('counselComment').value.trim();
-  if(!comment){await showCustomAlert('Sila isi kandungan', '📝'); return;}
+  if(!comment){await showCustomAlert('📝 Sila isi kandungan', '✏️'); return;}
   if(!canSubmit())return;
   var banCheck=containsBannedWord(comment);
   if(banCheck.found){
@@ -835,13 +906,13 @@ async function submitCounsel(){
   await fetch(CONFIG.googleScriptUrl,{method:'POST',body:new URLSearchParams({'comment':prefix+' '+comment})});
   recordSubmit();
   document.getElementById('counselComment').value='';
-  await showCustomAlert(isTeacherMode?'✨ Balasan Cikgu Mao dihantar! ✨':'✨ Berjaya hantar tanpa nama! ✨', '✅');
+  await showCustomAlert(isTeacherMode?'✨ Balasan Cikgu Mow dihantar! ✨':'✨ Berjaya hantar tanpa nama! ✨', '✅');
   loadAllMessages();
-  btn.disabled=false;btn.innerHTML=isTeacherMode?'👩‍🏫 Balas Guru':'🌙 Hantar Tanpa Nama';
+  btn.disabled=false;btn.innerHTML=isTeacherMode?'👩‍🏫 Balas Cikgu Mow':'🌙 Hantar Tanpa Nama';
 }
 async function submitQuote(){
   var comment=document.getElementById('quoteComment').value.trim();
-  if(!comment){await showCustomAlert('Sila isi kandungan', '📝'); return;}
+  if(!comment){await showCustomAlert('📝 Sila isi kandungan', '✏️'); return;}
   if(!canSubmit())return;
   var banCheck=containsBannedWord(comment);
   if(banCheck.found){
