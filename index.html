@@ -72,20 +72,28 @@
       margin: 0 auto;
     }
 
-    /* 全宽图片/视频区域 - 优化电脑版尺寸 */
+    /* 全宽图片/视频区域 */
     .full-image {
       width: 100%;
       display: block;
       animation: fadeInUp 0.6s ease-out;
     }
 
-    /* 电脑版限制最大宽度，居中显示 */
+    /* 电脑版限制最大宽度为页面宽度的60%，并且居中 */
     @media (min-width: 768px) {
       .full-image {
-        max-width: 768px;
-        margin: 0 auto;
+        max-width: 60%;
+        margin: 20px auto;
         border-radius: 16px;
         overflow: hidden;
+      }
+    }
+
+    /* 手机版保持全宽 */
+    @media (max-width: 767px) {
+      .full-image {
+        max-width: 100%;
+        margin: 0;
       }
     }
 
@@ -521,16 +529,7 @@
     #rotateOverlay .rotate-icon { font-size: 5rem; animation: rotatePhone 1.5s ease-in-out infinite; }
     @keyframes rotatePhone { 0%,100%{transform:rotate(0deg);} 50%{transform:rotate(90deg);} }
 
-    /* 响应式 - 电脑版图片/视频限制宽度 */
-    @media (min-width: 768px) {
-      .full-image {
-        max-width: 768px;
-        margin: 20px auto;
-        border-radius: 20px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      }
-    }
-
+    /* 响应式 */
     @media (max-width: 600px) {
       .sticky-header {
         padding: 10px 16px;
@@ -580,7 +579,7 @@
 <!-- 主内容容器 -->
 <div class="container">
   
-  <!-- 图片 1 - MP4 视频（优化手机自动播放） -->
+  <!-- 图片 1 - MP4 视频 -->
   <div class="full-image" id="image1">
     <video 
       id="heroVideo"
@@ -589,9 +588,9 @@
       muted 
       playsinline 
       disablePictureInPicture
-      webkit-playsinline
-      x5-playsinline
-      x5-video-player-type="h5"
+      webkit-playsinline="true"
+      x5-playsinline="true"
+      x5-video-player-type="h5-page"
       x5-video-player-fullscreen="false"
       oncontextmenu="return false"
       style="width:100%; height:auto; display:block;">
@@ -704,41 +703,57 @@
 </div>
 
 <script>
-  // ==================== 解决手机版视频需要点击才能播放的问题 ====================
+  // ==================== 强制手机版视频自动播放（解决需要点击的问题） ====================
   (function() {
-    // 方案1：页面加载后尝试播放
     const video = document.getElementById('heroVideo');
-    if (video) {
-      // 尝试播放，如果失败则通过用户交互触发
-      const playVideo = () => {
-        video.play().catch(e => {
-          console.log('自动播放失败，等待用户交互:', e);
-          // 监听用户点击页面任意位置后播放视频
-          document.body.addEventListener('touchstart', function onFirstTouch() {
-            video.play().catch(() => {});
-            document.body.removeEventListener('touchstart', onFirstTouch);
-          });
-          document.body.addEventListener('click', function onFirstClick() {
-            video.play().catch(() => {});
-            document.body.removeEventListener('click', onFirstClick);
-          });
-        });
-      };
-      
-      // 确保视频元数据加载完成后尝试播放
-      if (video.readyState >= 2) {
-        playVideo();
-      } else {
-        video.addEventListener('loadedmetadata', playVideo);
-      }
-      
-      // 页面可见性变化时重新尝试播放
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && video.paused) {
-          video.play().catch(() => {});
-        }
+    if (!video) return;
+    
+    // 方法1：页面加载后立即尝试播放
+    const tryAutoPlay = () => {
+      video.play().then(() => {
+        console.log('✅ 视频自动播放成功');
+      }).catch((error) => {
+        console.log('⚠️ 自动播放失败:', error);
+        // 方法2：监听页面任何触摸/点击事件，第一次触发时播放
+        const playOnInteraction = () => {
+          video.play().then(() => {
+            console.log('✅ 用户交互后播放成功');
+          }).catch(() => {});
+          // 移除监听器，只触发一次
+          document.removeEventListener('touchstart', playOnInteraction);
+          document.removeEventListener('click', playOnInteraction);
+        };
+        document.addEventListener('touchstart', playOnInteraction);
+        document.addEventListener('click', playOnInteraction);
       });
+    };
+    
+    // 确保视频元数据加载完成
+    if (video.readyState >= 2) {
+      tryAutoPlay();
+    } else {
+      video.addEventListener('loadedmetadata', tryAutoPlay);
     }
+    
+    // 方法3：页面切换回来时重新尝试播放
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && video.paused) {
+        video.play().catch(() => {});
+      }
+    });
+    
+    // 方法4：iOS Safari 特殊处理 - 模拟用户交互
+    // 当页面加载完成后，创建一个"隐形"的按钮点击事件
+    window.addEventListener('load', () => {
+      // 延迟一点再试一次，确保DOM完全加载
+      setTimeout(() => {
+        if (video.paused) {
+          // 创建一个不可见的交互模拟（某些浏览器支持）
+          const event = new Event('touchstart', { bubbles: true });
+          document.body.dispatchEvent(event);
+        }
+      }, 100);
+    });
   })();
 
   // ==================== 课程数据（用于弹窗显示） ====================
@@ -793,11 +808,11 @@
 
   // ==================== 图片链接 ====================
   const imageUrls = [
-    "https://via.placeholder.com/768x400/c8dcc0/2d4e1e?text=Image+2",
-    "https://via.placeholder.com/768x400/e8f0e3/2d4e1e?text=Image+3",
-    "https://via.placeholder.com/768x400/a8c99b/2d4e1e?text=Image+4",
-    "https://via.placeholder.com/768x400/7fa86a/ffffff?text=Image+5",
-    "https://via.placeholder.com/768x400/c8dcc0/2d4e1e?text=Image+6"
+    "https://via.placeholder.com/800x450/c8dcc0/2d4e1e?text=Image+2",
+    "https://via.placeholder.com/800x450/e8f0e3/2d4e1e?text=Image+3",
+    "https://via.placeholder.com/800x450/a8c99b/2d4e1e?text=Image+4",
+    "https://via.placeholder.com/800x450/7fa86a/ffffff?text=Image+5",
+    "https://via.placeholder.com/800x450/c8dcc0/2d4e1e?text=Image+6"
   ];
 
   function loadAllImages() {
