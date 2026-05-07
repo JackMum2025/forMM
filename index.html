@@ -72,11 +72,21 @@
       margin: 0 auto;
     }
 
-    /* 全宽图片/视频区域 */
+    /* 全宽图片/视频区域 - 优化电脑版尺寸 */
     .full-image {
       width: 100%;
       display: block;
       animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* 电脑版限制最大宽度，居中显示 */
+    @media (min-width: 768px) {
+      .full-image {
+        max-width: 768px;
+        margin: 0 auto;
+        border-radius: 16px;
+        overflow: hidden;
+      }
     }
 
     .full-image img,
@@ -511,7 +521,16 @@
     #rotateOverlay .rotate-icon { font-size: 5rem; animation: rotatePhone 1.5s ease-in-out infinite; }
     @keyframes rotatePhone { 0%,100%{transform:rotate(0deg);} 50%{transform:rotate(90deg);} }
 
-    /* 响应式 */
+    /* 响应式 - 电脑版图片/视频限制宽度 */
+    @media (min-width: 768px) {
+      .full-image {
+        max-width: 768px;
+        margin: 20px auto;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      }
+    }
+
     @media (max-width: 600px) {
       .sticky-header {
         padding: 10px 16px;
@@ -561,14 +580,19 @@
 <!-- 主内容容器 -->
 <div class="container">
   
-  <!-- 图片 1 - 替换为 MP4 视频（自动循环播放，无控制条） -->
+  <!-- 图片 1 - MP4 视频（优化手机自动播放） -->
   <div class="full-image" id="image1">
     <video 
+      id="heroVideo"
       autoplay 
       loop 
       muted 
       playsinline 
       disablePictureInPicture
+      webkit-playsinline
+      x5-playsinline
+      x5-video-player-type="h5"
+      x5-video-player-fullscreen="false"
       oncontextmenu="return false"
       style="width:100%; height:auto; display:block;">
       <source src="https://jackmum2025.github.io/forMM/title.mp4" type="video/mp4">
@@ -680,6 +704,43 @@
 </div>
 
 <script>
+  // ==================== 解决手机版视频需要点击才能播放的问题 ====================
+  (function() {
+    // 方案1：页面加载后尝试播放
+    const video = document.getElementById('heroVideo');
+    if (video) {
+      // 尝试播放，如果失败则通过用户交互触发
+      const playVideo = () => {
+        video.play().catch(e => {
+          console.log('自动播放失败，等待用户交互:', e);
+          // 监听用户点击页面任意位置后播放视频
+          document.body.addEventListener('touchstart', function onFirstTouch() {
+            video.play().catch(() => {});
+            document.body.removeEventListener('touchstart', onFirstTouch);
+          });
+          document.body.addEventListener('click', function onFirstClick() {
+            video.play().catch(() => {});
+            document.body.removeEventListener('click', onFirstClick);
+          });
+        });
+      };
+      
+      // 确保视频元数据加载完成后尝试播放
+      if (video.readyState >= 2) {
+        playVideo();
+      } else {
+        video.addEventListener('loadedmetadata', playVideo);
+      }
+      
+      // 页面可见性变化时重新尝试播放
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && video.paused) {
+          video.play().catch(() => {});
+        }
+      });
+    }
+  })();
+
   // ==================== 课程数据（用于弹窗显示） ====================
   const courseData = {
     '一年级': ['我的宗教信仰','助人小天使','我已经长大','欢喜说谢谢','人人夸我有礼貌','我喜欢我自己','爱惜自己','处处讲公正','我是勇敢的小孩','花瓶是我打破的','天天要勤劳','分工合作真欢喜','凡事都要刚刚好','我懂得礼让'],
@@ -730,16 +791,15 @@
   window.addEventListener('resize',checkOrientation);
   checkOrientation();
 
-  // ==================== 6张图片链接 ====================
+  // ==================== 图片链接 ====================
   const imageUrls = [
-    "https://via.placeholder.com/1200x600/c8dcc0/2d4e1e?text=Image+2",
-    "https://via.placeholder.com/1200x600/e8f0e3/2d4e1e?text=Image+3",
-    "https://via.placeholder.com/1200x600/a8c99b/2d4e1e?text=Image+4",
-    "https://via.placeholder.com/1200x600/7fa86a/ffffff?text=Image+5",
-    "https://via.placeholder.com/1200x600/c8dcc0/2d4e1e?text=Image+6"
+    "https://via.placeholder.com/768x400/c8dcc0/2d4e1e?text=Image+2",
+    "https://via.placeholder.com/768x400/e8f0e3/2d4e1e?text=Image+3",
+    "https://via.placeholder.com/768x400/a8c99b/2d4e1e?text=Image+4",
+    "https://via.placeholder.com/768x400/7fa86a/ffffff?text=Image+5",
+    "https://via.placeholder.com/768x400/c8dcc0/2d4e1e?text=Image+6"
   ];
 
-  // 注意：图1已经是 MP4 视频，不需要通过此函数加载
   function loadAllImages() {
     for (let i = 2; i <= 6; i++) {
       const imgContainer = document.getElementById(`image${i}`);
@@ -791,11 +851,10 @@
 
   document.getElementById('freeTrialBtn').addEventListener('click', handleFreeTrial);
   
-  // 底部按钮
   const footerTrialBtn = document.getElementById('freeTrialFooterBtn');
   if (footerTrialBtn) footerTrialBtn.addEventListener('click', handleFreeTrial);
 
-  // ==================== MASTER KEY LOGIN：8位密码，任何输入都显示无效 ====================
+  // ==================== MASTER KEY LOGIN ====================
   function showMasterKeyModal() {
     const modalOverlay = document.createElement('div');
     modalOverlay.className = 'modal-overlay';
