@@ -72,14 +72,15 @@
       margin: 0 auto;
     }
 
-    /* 全宽图片区域 */
+    /* 全宽图片/视频区域 */
     .full-image {
       width: 100%;
       display: block;
       animation: fadeInUp 0.6s ease-out;
     }
 
-    .full-image img {
+    .full-image img,
+    .full-image video {
       width: 100%;
       height: auto;
       display: block;
@@ -560,9 +561,19 @@
 <!-- 主内容容器 -->
 <div class="container">
   
-  <!-- 图片 1 -->
+  <!-- 图片 1 - 替换为 MP4 视频（自动循环播放，无控制条） -->
   <div class="full-image" id="image1">
-    <img src="" alt="Moral Fantastic Banner">
+    <video 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      disablePictureInPicture
+      oncontextmenu="return false"
+      style="width:100%; height:auto; display:block;">
+      <source src="https://jackmum2025.github.io/forMM/title.mp4" type="video/mp4">
+      您的浏览器不支持视频播放。
+    </video>
   </div>
 
   <!-- 按钮区域（图片1之后） -->
@@ -721,7 +732,6 @@
 
   // ==================== 6张图片链接 ====================
   const imageUrls = [
-    "https://jackmum2025.github.io/forMM/Your%20paragraph%20text.gif",
     "https://via.placeholder.com/1200x600/c8dcc0/2d4e1e?text=Image+2",
     "https://via.placeholder.com/1200x600/e8f0e3/2d4e1e?text=Image+3",
     "https://via.placeholder.com/1200x600/a8c99b/2d4e1e?text=Image+4",
@@ -729,13 +739,14 @@
     "https://via.placeholder.com/1200x600/c8dcc0/2d4e1e?text=Image+6"
   ];
 
+  // 注意：图1已经是 MP4 视频，不需要通过此函数加载
   function loadAllImages() {
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 2; i <= 6; i++) {
       const imgContainer = document.getElementById(`image${i}`);
-      if (imgContainer && imageUrls[i-1]) {
+      if (imgContainer && imageUrls[i-2]) {
         const img = imgContainer.querySelector('img');
         if (img) {
-          img.src = imageUrls[i-1];
+          img.src = imageUrls[i-2];
           img.style.animation = `fadeInUp 0.6s ease-out ${(i-1) * 0.1}s backwards`;
         }
       }
