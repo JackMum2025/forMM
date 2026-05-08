@@ -30,14 +30,14 @@
       overflow: hidden; 
       /* 移除固定的 aspect-ratio，改为固定高度或更大比例 */
       width: 100%;
-      height: 600px;      /* ← 增加高度（原来约500px）电脑版 */
+      height: 550px;      /* ← 增加高度（原来约500px）电脑版 */
       min-height: 500px;
     }
     
     /* 手机版：让容器更高，占满更多屏幕 */
     @media (max-width: 768px) {
       .game-container {
-        height: 550px;    /* 手机版也调高 */
+        height: 70vh;    /* 手机版也调高 */
         min-height: 450px;
       }
     }
@@ -45,7 +45,7 @@
     /* 大屏幕电脑：可以更高 */
     @media (min-width: 1200px) {
       .game-container {
-        height: 700px;    /* 大屏幕更高 */
+        height: 650px;    /* 大屏幕更高 */
       }
     }
     
