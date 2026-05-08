@@ -186,7 +186,12 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
-    main { max-width: 700px; margin: 0 auto; padding: 20px 16px; }
+    /* ========== 修改：主容器宽度统一为 1200px，与游戏页面一致 ========== */
+    main { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 20px 16px; 
+    }
 
     .slogan-img {
       text-align: center;
@@ -197,14 +202,21 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .slogan-img img { width: 100%; max-width: 600px; border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; }
+    .slogan-img img { 
+      width: 100%; 
+      max-width: 600px; 
+      border-radius: 28px; 
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
+      transition: transform 0.3s, box-shadow 0.3s; 
+    }
     .slogan-img img:hover { transform: scale(1.02); box-shadow: 0 12px 32px rgba(127,168,106,0.2); }
 
+    /* ========== 修改：卡片在大屏幕下更宽 ========== */
     .board-card {
       background: white;
       border-radius: 28px;
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 24px;
+      margin-bottom: 24px;
       border: 1px solid #d4e6ca;
       transition: all 0.3s ease;
       animation: fadeInUp 0.6s ease-out;
@@ -219,16 +231,16 @@
       padding-bottom: 8px;
       border-bottom: 2px solid #e2ecd9;
     }
-    .board-header h2 { color: #2d4e1e; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; margin: 0; }
+    .board-header h2 { color: #2d4e1e; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; margin: 0; }
     .board-badge { padding: 4px 12px; border-radius: 40px; font-size: 0.7rem; font-weight: 600; background: #eef5ea; }
     .badge-anonymous { background: #eef5ea; color: #4a6e3a; }
     .badge-signed { background: #d4e6ca; color: #2d4e1e; }
     .board-tip {
       background: linear-gradient(135deg, #eef5ea, #f4faf0);
       border-radius: 20px;
-      padding: 10px 14px;
+      padding: 12px 16px;
       margin-bottom: 16px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #4a6040;
     }
     .message-form {
@@ -280,6 +292,9 @@
       margin-top: 20px;
       border-radius: 28px;
       font-size: 0.75rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .circle-buttons {
@@ -290,8 +305,8 @@
       flex-wrap: wrap;
     }
     .circle-btn {
-      width: 72px;
-      height: 72px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       background: linear-gradient(145deg, #7fa86a, #6b9a56);
       color: white;
@@ -322,13 +337,13 @@
       box-shadow: 0 16px 32px rgba(91,140,78,0.45);
     }
     .circle-btn span:first-child { 
-      font-size: 1.6rem; 
+      font-size: 1.8rem; 
       font-weight: 800;
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
       line-height: 1.2;
     }
     .circle-btn span:last-child { 
-      font-size: 0.65rem; 
+      font-size: 0.7rem; 
       margin-top: 4px;
       font-weight: 700;
       letter-spacing: 0.3px;
@@ -339,9 +354,11 @@
     }
     @media (max-width: 600px) {
       .circle-buttons { gap: 10px; }
-      .circle-btn { width: 60px; height: 60px; }
-      .circle-btn span:first-child { font-size: 1.3rem; }
+      .circle-btn { width: 65px; height: 65px; }
+      .circle-btn span:first-child { font-size: 1.4rem; }
       .circle-btn span:last-child { font-size: 0.55rem; }
+      .board-header h2 { font-size: 1.1rem; }
+      .board-tip { font-size: 0.8rem; }
     }
 
     .enter-classroom-btn {
@@ -870,9 +887,7 @@ async function loadAllMessages(){
         var cleanMsg=content.replace('[老师回复]','').replace('[质询]','').trim();
         counselHtml += '<div class="message-item" style="'+(isTR?'background:#eef5ea;border-left:4px solid #7fa86a;':'')+'"><div class="message-header"><span class="message-author" style="'+(isTR?'color:#2d4e1e;font-weight:600;':'')+'">'+(isTR?'👩‍🏫 Balasan Cikgu Mow ✨':'🕶️ Tanpa Nama ✦')+'</span><span class="message-time">'+(item['时间戳']||'')+'</span></div><div class="message-content">'+escapeHtml(cleanMsg)+'</div></div>';
       } else if(content.startsWith('[名言]')){
-        // 修复名言墙显示：直接显示名字（年级-身份）：留言，不添加额外的"Ahli Moral"前缀
         var quoteMsg = content.replace('[名言]','').trim();
-        // 提取名字部分（格式：【名字】: 留言 或 ✦ 名字 ✦: 留言）
         var namePart = '';
         var messagePart = quoteMsg;
         var nameMatch = quoteMsg.match(/【(.*?)】/);
