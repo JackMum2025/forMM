@@ -18,12 +18,44 @@
     .logo-text { font-size: 1.5rem; font-weight: 800; color: #2d4e1e; }
     .back-home { background: #eef5ea; color: #2d4e1e; text-decoration: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; }
     .back-home:hover { background: #7fa86a; color: white; }
-    .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px 40px; }
     h1 { color: #2d4e1e; margin-bottom: 8px; }
     .game-selector { background: white; border-radius: 32px; border: 1px solid #d4e6ca; padding: 20px; margin: 20px 0; }
     select { width: 100%; padding: 14px 16px; border: 2px solid #e2ecd9; border-radius: 60px; font-family: inherit; margin-bottom: 16px; }
-    .game-container { background: #fefef9; border-radius: 24px; overflow: hidden; aspect-ratio: 16/9; }
-    .game-container iframe { width: 100%; height: 100%; border: none; }
+    
+    /* ========== 主要修改：游戏容器尺寸 ========== */
+    .game-container { 
+      background: #1a2a1a; 
+      border-radius: 24px; 
+      overflow: hidden; 
+      /* 移除固定的 aspect-ratio，改为固定高度或更大比例 */
+      width: 100%;
+      height: 600px;      /* ← 增加高度（原来约500px）电脑版 */
+      min-height: 500px;
+    }
+    
+    /* 手机版：让容器更高，占满更多屏幕 */
+    @media (max-width: 768px) {
+      .game-container {
+        height: 550px;    /* 手机版也调高 */
+        min-height: 450px;
+      }
+    }
+    
+    /* 大屏幕电脑：可以更高 */
+    @media (min-width: 1200px) {
+      .game-container {
+        height: 700px;    /* 大屏幕更高 */
+      }
+    }
+    
+    .game-container iframe { 
+      width: 100%; 
+      height: 100%; 
+      border: none; 
+      display: block;
+    }
+    
     .game-note { text-align: center; margin-top: 12px; color: #8aa67d; }
     .nav-buttons { display: flex; gap: 16px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
     .nav-btn { background: #7fa86a; color: white; text-decoration: none; padding: 12px 28px; border-radius: 60px; font-weight: 600; transition: 0.2s; }
