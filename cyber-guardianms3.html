@@ -74,7 +74,6 @@
     button { padding: 12px 35px; background: transparent; border: 2px solid #00f3ff; color: #00f3ff; font-weight: bold; border-radius: 30px; font-size: 18px; letter-spacing: 1px; cursor: pointer; transition: 0.2s; }
     button:active { background: #00f3ff; color: #000; }
 
-    /* 手机版优化 */
     @media (max-width: 600px) {
       #timer-container { padding: 4px 16px; }
       #timer-text { font-size: 20px; }
@@ -109,7 +108,7 @@
     <div class="panel">
       <h1 id="result-title"></h1>
       <div class="encourage" id="result-message"></div>
-      <button onclick="startGame()">Sambung Semula ke Rangkaian</button>
+      <button id="restart-button">Sambung Semula ke Rangkaian</button>
     </div>
   </div>
 
@@ -124,6 +123,7 @@
       const resultMessage = document.getElementById('result-message');
       const joystickContainer = document.getElementById('joystick-container');
       const joystickThumb = document.getElementById('joystick-thumb');
+      const restartButton = document.getElementById('restart-button');
 
       let width, height;
       let isMobile = false;
@@ -135,7 +135,6 @@
         canvas.height = height;
         isMobile = width < 600;
         
-        // 小地图尺寸根据是否手机调整
         const mmSize = isMobile ? 110 : 150;
         minimapCanvas.width = mmSize;
         minimapCanvas.height = mmSize;
@@ -253,21 +252,68 @@
         for(let i=0;i<10;i++) superStars.push({x:Math.random()*WORLD_SIZE,y:Math.random()*WORLD_SIZE,type:getRandomSuperStarType(),pulse:Math.random()*Math.PI*2});
       }
 
-      function startGame(){
-        if(animationId) cancelAnimationFrame(animationId);
-        persons=[]; particles=[]; teams={}; obstacles=[]; powerups=[]; superStars=[];
-        gameState='PLAYING'; gameOverScreen.style.display='none';
-        gameTimeLeft=MAX_GAME_TIME; speedMultiplier=1.0; lastTime=performance.now();
-        generateMap();
-        for(let i=1;i<=NUM_AI_TEAMS+1;i++){
-          let sx=Math.random()*WORLD_SIZE,sy=Math.random()*WORLD_SIZE;
-          if(i===1){sx=WORLD_SIZE/2; sy=WORLD_SIZE/2;}
-          teams[i]={id:i,count:1,alive:true,targetX:sx,targetY:sy,cx:sx,cy:sy};
-          persons.push(new Person(sx,sy,i));
+      // 清理游戏资源的函数
+      function cleanupGame() {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
         }
-        camera.x=WORLD_SIZE/2; camera.y=WORLD_SIZE/2;
-        for(let i=0;i<NUM_NEUTRALS;i++) persons.push(new Person(Math.random()*WORLD_SIZE,Math.random()*WORLD_SIZE,0));
-        animationId=requestAnimationFrame(gameLoop);
+        // 清空所有数组
+        persons = [];
+        particles = [];
+        teams = {};
+        obstacles = [];
+        powerups = [];
+        superStars = [];
+      }
+
+      function startGame() {
+        // 清理旧游戏
+        cleanupGame();
+        
+        // 重置状态
+        gameState = 'PLAYING';
+        gameTimeLeft = MAX_GAME_TIME;
+        speedMultiplier = 1.0;
+        lastTime = performance.now();
+        inputDir = { x: 0, y: 0 };
+        camera = { x: WORLD_SIZE/2, y: WORLD_SIZE/2 };
+        
+        // 隐藏结束画面
+        gameOverScreen.style.display = 'none';
+        
+        // 生成地图
+        generateMap();
+        
+        // 创建队伍
+        for(let i = 1; i <= NUM_AI_TEAMS + 1; i++){
+          let sx = Math.random() * WORLD_SIZE;
+          let sy = Math.random() * WORLD_SIZE;
+          if(i === 1){
+            sx = WORLD_SIZE / 2;
+            sy = WORLD_SIZE / 2;
+          }
+          teams[i] = {
+            id: i,
+            count: 1,
+            alive: true,
+            targetX: sx,
+            targetY: sy,
+            cx: sx,
+            cy: sy,
+            sumX: sx,
+            sumY: sy
+          };
+          persons.push(new Person(sx, sy, i));
+        }
+        
+        // 添加中立单位
+        for(let i = 0; i < NUM_NEUTRALS; i++) {
+          persons.push(new Person(Math.random() * WORLD_SIZE, Math.random() * WORLD_SIZE, 0));
+        }
+        
+        // 开始动画循环
+        animationId = requestAnimationFrame(gameLoop);
       }
 
       function updateAI(){
@@ -301,11 +347,8 @@
         ctx.save();
         if(teams[1]&&teams[1].alive) { camera.x+=(teams[1].cx-camera.x)*0.12; camera.y+=(teams[1].cy-camera.y)*0.12; }
         
-        // ========== 关键修改：手机版使用更合适的缩放比例 ==========
-        // 之前是固定的 0.38，现在根据屏幕宽度动态计算，让游戏画面更舒适
         let viewScale;
         if (isMobile) {
-          // 手机版：根据屏幕宽度计算，范围 0.45 ~ 0.65，不会太小
           viewScale = Math.min(0.65, Math.max(0.45, width / 750));
         } else {
           viewScale = 1.0;
@@ -389,6 +432,7 @@
       }
 
       function triggerGameOver(title, sorted) {
+        if (gameState === 'GAMEOVER') return; // 防止重复触发
         gameState = 'GAMEOVER';
         if (title.includes('Ditenggelami') || title.includes('Gangguan')) {
           resultTitle.innerText = 'Sambungan Terputus';
@@ -404,21 +448,45 @@
       }
 
       function gameLoop(){
-        if(gameState==='PLAYING'){
-          if(teams[1]&&teams[1].alive){ teams[1].targetX=teams[1].cx+inputDir.x*220; teams[1].targetY=teams[1].cy+inputDir.y*220; }
-          updateAI(); updatePhysics();
+        if(gameState === 'PLAYING'){
+          if(teams[1] && teams[1].alive){ 
+            teams[1].targetX = teams[1].cx + inputDir.x * 220; 
+            teams[1].targetY = teams[1].cy + inputDir.y * 220; 
+          }
+          updateAI(); 
+          updatePhysics();
         }
+        
         ctx.clearRect(0,0,width,height);
         drawWorld();
-        let sorted=Object.values(teams).filter(t=>t.count>0).sort((a,b)=>b.count-a.count);
-        updateUI(sorted); drawMinimap();
-        if(gameState==='PLAYING'&&(!teams[1]||teams[1].count<=0)) triggerGameOver("Ditenggelami oleh Buli Siber",sorted);
-        else if(gameState==='PLAYING'&&sorted.length===1&&sorted[0].id===1) triggerGameOver("Persekitaran Rangkaian Telah Dibersihkan!",sorted);
-        animationId=requestAnimationFrame(gameLoop);
+        
+        let sorted = Object.values(teams).filter(t => t && t.count > 0).sort((a,b) => b.count - a.count);
+        updateUI(sorted); 
+        drawMinimap();
+        
+        if(gameState === 'PLAYING' && (!teams[1] || teams[1].count <= 0)) {
+          triggerGameOver("Ditenggelami oleh Buli Siber", sorted);
+        } else if(gameState === 'PLAYING' && sorted.length === 1 && sorted[0] && sorted[0].id === 1) {
+          triggerGameOver("Persekitaran Rangkaian Telah Dibersihkan!", sorted);
+        }
+        
+        animationId = requestAnimationFrame(gameLoop);
       }
 
+      // 绑定重启按钮事件（解决需要点击两次的问题）
+      restartButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        startGame();
+      });
+      
+      // 触摸屏也要处理
+      restartButton.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        startGame();
+      });
+
+      // 开始游戏
       startGame();
-      window.startGame = startGame;
     })();
   </script>
 </body>
