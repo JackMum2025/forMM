@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>课堂PPT · Moral Fantastic</title>
+  <title>PPT Kelas · Moral Fantastic</title>
   <style>
+    /* 横屏提示遮罩 - 默认隐藏 */
+    #rotateOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      text-align: center;
+      font-family: 'Nunito', system-ui, sans-serif;
+    }
+    #rotateOverlay.active { display: flex; }
+    #rotateOverlay .rotate-icon { 
+      font-size: 5rem; 
+      margin-bottom: 20px;
+      animation: rotatePhone 1.5s ease-in-out infinite; 
+    }
+    #rotateOverlay p { 
+      font-size: 1.2rem; 
+      margin-bottom: 10px;
+    }
+    #rotateOverlay .rotate-sub {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    @keyframes rotatePhone { 
+      0%,100%{transform:rotate(0deg);} 
+      50%{transform:rotate(90deg);} 
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Nunito', system-ui; background: #fff; color: #2d4e1e; }
     .sticky-header {
@@ -18,13 +54,48 @@
     .logo-text { font-size: 1.5rem; font-weight: 800; color: #2d4e1e; }
     .back-home { background: #eef5ea; color: #2d4e1e; text-decoration: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; transition: 0.2s; }
     .back-home:hover { background: #7fa86a; color: white; }
-    .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 40px; text-align: center; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px 40px; text-align: center; }
     h1 { color: #2d4e1e; margin-bottom: 16px; }
-    .placeholder {
-      background: #eef5ea; border-radius: 32px; padding: 80px 20px;
-      border: 2px dashed #c8dcc0; margin: 24px 0;
+    
+    /* ========== 统一容器样式 ========== */
+    .content-container { 
+      background: white; 
+      border-radius: 32px; 
+      border: 1px solid #d4e6ca;
+      padding: 20px;
+      margin: 20px 0;
     }
-    .placeholder-icon { font-size: 4rem; margin-bottom: 16px; }
+    
+    .ppt-wrapper {
+      background: #1a2a1a;
+      border-radius: 24px;
+      overflow: hidden;
+      width: 100%;
+      height: 550px;
+      min-height: 500px;
+    }
+    
+    @media (max-width: 768px) {
+      .ppt-wrapper {
+        height: 70vh;
+        min-height: 450px;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .ppt-wrapper {
+        height: 650px;
+      }
+    }
+    
+    .ppt-wrapper iframe { 
+      width: 100%; 
+      height: 100%; 
+      border: none; 
+      display: block;
+    }
+    
+    .game-note { text-align: center; margin-top: 12px; color: #8aa67d; }
     .nav-buttons { display: flex; gap: 16px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
     .nav-btn { background: #7fa86a; color: white; text-decoration: none; padding: 12px 28px; border-radius: 60px; font-weight: 600; transition: 0.2s; }
     .nav-btn:hover { background: #5b8c4e; transform: translateY(-2px); }
@@ -34,28 +105,80 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<div id="rotateOverlay">
+  <div class="rotate-icon">📱</div>
+  <p>Sila putar telefon ke mod potret</p>
+</div>
+
 <div class="sticky-header">
   <div class="logo-area"><div class="logo-icon">🍀</div><div class="logo-text">Moral Fantastic</div></div>
-  <a href="zh.html" class="back-home">🏠 回到主页</a>
+  <a href="ms.html" class="back-home">🏠 Kembali ke Laman Utama</a>
 </div>
+
 <div class="container">
-  <h1>📊 课堂PPT</h1>
-  <p style="color: #6b7c63;">网络霸凌 · 教学课件</p>
-  <div class="placeholder">
-    <div class="placeholder-icon">📎</div>
-    <h3 style="color: #7fa86a; margin-bottom: 8px;">PPT 待上传</h3>
-    <p style="color: #8aa67d;">请在此处添加您的 PPT 链接或嵌入代码</p>
+  <h1>📊 PPT Kelas</h1>
+  <p style="color: #6b7c63; margin-bottom: 16px;">Buli Siber · Bahan Pengajaran</p>
+  
+  <div class="content-container">
+    <div class="ppt-wrapper" id="pptWrapper">
+      <iframe 
+        style="width:100%; height:100%; border:none;"
+        src="https://www.canva.com/design/DAHJXEULv6Q/i0w2cIOqsFUmzLuy_k9sQw/view?embed" 
+        allowfullscreen="allowfullscreen" 
+        allow="fullscreen">
+      </iframe>
+    </div>
+    <div class="game-note">
+      📚 Slaid pengajaran interaktif tentang buli siber
+    </div>
   </div>
+  
   <div class="nav-buttons">
-    <a href="zh.html" class="nav-btn outline">🏠 回到主页</a>
-    <a href="video.html" class="nav-btn">下一项：教学视频 →</a>
+    <a href="ms.html" class="nav-btn outline">🏠 Kembali ke Laman Utama</a>
+    <a href="videoms.html" class="nav-btn">Seterusnya: Video →</a>
   </div>
 </div>
-<footer>© 2026 Moral Fantastic · 德育如细雨，润物细无声</footer>
+
+<footer>© 2026 Moral Fantastic · Moral bagai hujan renyai, menyubur tanpa bunyi</footer>
+
 <script>
-  // 当您有PPT链接时，将下方注释取消
-  // const placeholder = document.querySelector('.placeholder');
-  // placeholder.innerHTML = '<iframe src="您的PPT链接" style="width:100%; height:500px; border:none; border-radius:24px;"></iframe>';
+  // 横屏检测
+  function isTouchDevice() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }
+  function checkOrientation() {
+    var o = document.getElementById('rotateOverlay');
+    if (!o) return;
+    if (!isTouchDevice()) { o.classList.remove('active'); return; }
+    if (window.innerWidth > window.innerHeight) {
+      o.classList.add('active');
+    } else {
+      o.classList.remove('active');
+    }
+  }
+  window.addEventListener('orientationchange', checkOrientation);
+  window.addEventListener('resize', checkOrientation);
+  checkOrientation();
+
+  function updatePptHeight() {
+    const wrapper = document.getElementById('pptWrapper');
+    if (!wrapper) return;
+    const isMobile = window.innerWidth < 768;
+    const isLarge = window.innerWidth > 1200;
+    
+    if (isMobile) {
+      wrapper.style.height = '70vh';
+    } else if (isLarge) {
+      wrapper.style.height = '650px';
+    } else {
+      wrapper.style.height = '550px';
+    }
+  }
+  
+  window.addEventListener('resize', updatePptHeight);
+  window.addEventListener('load', updatePptHeight);
+  setTimeout(updatePptHeight, 100);
 </script>
 </body>
 </html>
