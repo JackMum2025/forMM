@@ -204,7 +204,7 @@
     }
     .slogan-img img { 
       width: 100%; 
-      max-width: 600px; 
+      max-width: 700px; 
       border-radius: 28px; 
       box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
       transition: transform 0.3s, box-shadow 0.3s; 
@@ -479,6 +479,28 @@
     @keyframes rotatePhone { 0%,100%{transform:rotate(0deg);} 50%{transform:rotate(90deg);} }
 
     .empty-message { text-align: center; color: #b8cfaa; padding: 24px; font-style: italic; }
+
+    /* 新增样式：让页脚链接看起来更美观 */
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin: 16px auto 0;
+        padding-top: 12px;
+        border-top: 1px solid rgba(168, 171, 115, 0.15);
+        flex-wrap: wrap;
+    }
+    .footer-links a {
+        color: #4a6e3a;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        font-weight: 600;
+    }
+    .footer-links a:hover {
+        color: #7fa86a;
+        text-decoration: underline;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
@@ -488,7 +510,7 @@
 
 <div class="sticky-header">
   <div class="logo-area"><div class="logo-icon">🍀</div><div class="logo-text">Moral Fantastic</div></div>
-  <div class="lang-badge" id="langSwitchBtn">🌙 Bahasa Melayu</div>
+  <div class="lang-badge" id="langSwitchBtn">🌙 华语 </div>
 </div>
 
 <!-- Halaman Maklumat Peribadi -->
@@ -579,7 +601,12 @@
       <div class="message-list" id="quoteList"><div class="empty-message">✨ Sedang memuat...</div></div>
     </div>
   </main>
-  <footer><p>© 2026 Moral Fantastic · Tugasan Kursus IPG | Moral bagai hujan renyai, menyubur tanpa bunyi</p></footer>
+  <footer>
+    <p>© 2026 Moral Fantastic · Tugasan Kursus IPG | Moral bagai hujan renyai, menyubur tanpa bunyi</p>
+    <div class="footer-links">
+        <a href="https://mxhproject.github.io/moral-interactive-site/" target="_blank">🏠 点击回宣传页</a>
+    </div>
+  </footer>
 </div>
 
 <script>
